@@ -22,6 +22,34 @@ namespace proiect
         public static string skillsC;
         public static int c_panel_skillsC = 0;
 
+        public static string get_skillsC()
+        {
+            return skillsC;
+        }
+
+        public static bool IfExistsCompany(string company)
+        {
+            int ok = 0;
+            var context = new LinkedinEntities();
+            var results = from c in context.Companies
+                          select new
+                          {
+                              c.Nume_companie
+                          };
+
+            foreach (var item in results)
+            {
+                if (item.Nume_companie.Equals(company))
+                    ok = 1;
+            }
+
+            if (ok == 1)
+                return true;
+
+            return false;
+
+        }
+
         public SignInCompany()
         {
             skillsC = null;
@@ -32,67 +60,70 @@ namespace proiect
 
         private void txtCompanyName_TextChanged(object sender, EventArgs e)
         {
-            companyname = txtCompanyName.ToString();
-            //aici bagati un if sa vedeti daca exita deja compania
-            /* if (companyname.Equals(cineva))
-             {
-                 MessageBox.Show("Company already exist!",
-                      "ERROR",
-                      MessageBoxButtons.OK,
-                      MessageBoxIcon.Error);
-             }*/
+            companyname = txtCompanyName.Text.ToString();
         }
 
         private void txtCEO_TextChanged(object sender, EventArgs e)
         {
-            CEO = txtCEO.ToString();
+            CEO = txtCEO.Text.ToString();
         }
 
         private void txtAddress_TextChanged(object sender, EventArgs e)
         {
-            addressC = txtAddress.ToString();
+            addressC = txtAddress.Text.ToString();
         }
 
         private void txtPassCompany_TextChanged(object sender, EventArgs e)
         {
-            passC = txtPassCompany.ToString();
+            passC = txtPassCompany.Text.ToString();
         }
 
         private void txtCheckPassCompany_TextChanged(object sender, EventArgs e)
         {
-            checkpassC = txtCheckPassCompany.ToString();
-            if (passC.Equals(checkpassC)==false)
+            checkpassC = txtCheckPassCompany.Text.ToString();
+        }
+
+
+        private void txtEmailCompany_TextChanged(object sender, EventArgs e)
+        {
+            emailC = txtEmailCompany.Text.ToString();
+        }
+
+
+        private void txtPhoneCompany_TextChanged(object sender, EventArgs e)
+        {
+            phoneC = txtPhoneCompany.Text.ToString();
+        }
+
+        private void btNextCompany_Click(object sender, EventArgs e)
+        {
+
+            if (companyname != null && IfExistsCompany(companyname) == true)
+            {
+                MessageBox.Show("Company already exist!",
+                "ERROR",
+               MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
+            else if (passC != null && checkpassC != null && passC.Equals(checkpassC) == false)
             {
                 MessageBox.Show("Password dosen't match",
                        "Warning",
                        MessageBoxButtons.OK,
                        MessageBoxIcon.Warning);
             }
-        }
-
-        private void txtEmailCompany_TextChanged(object sender, EventArgs e)
-        {
-            emailC = txtEmailCompany.ToString();
-        }
-
-        private void txtPhoneCompany_TextChanged(object sender, EventArgs e)
-        {
-            phoneC = txtPassCompany.ToString();
-        }
-
-        private void btNextCompany_Click(object sender, EventArgs e)
-        {
-            if (companyname != null && CEO != null
-                && addressC != null && phoneC != null
-                && emailC != null && skillsC != null
-                && passC != null && checkpassC != null)
+            else if (companyname != null && CEO != null
+                        && addressC != null && phoneC != null
+                        && emailC != null && skillsC != null
+                        && passC != null && checkpassC != null)
             {
                 MessageBox.Show("Register successfully",
                      "Information",
                      MessageBoxButtons.OK,
                      MessageBoxIcon.Information);
                 this.Close();
-                Form form = new Companie();
+                CCompanie.inregistreaza_companie(CEO, companyname, addressC, emailC, phoneC, passC);
+                Form form = new CCompanie(CEO, companyname, addressC, emailC, phoneC, get_skillsC());
                 form.Show();
             }
             else
@@ -128,207 +159,416 @@ namespace proiect
 
         private void checkBox45_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + checkBox45.ToString();
+            if (skillsC == null)
+            {
+                skillsC = checkBox45.Text.ToString();
+            }
+            else
+                skillsC += "," + checkBox45.Text.ToString();
         }
 
         private void checkBox42_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + checkBox42.ToString();
+            if (skillsC == null)
+            {
+                skillsC = checkBox42.Text.ToString();
+            }
+            else
+                skillsC += "," + checkBox42.Text.ToString();
         }
 
         private void checkBox47_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + checkBox47.ToString();
+            if (skillsC == null)
+            {
+                skillsC = checkBox47.Text.ToString();
+            }
+            else
+                skillsC += "," + checkBox47.Text.ToString();
         }
 
         private void checkBox41_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + checkBox41.ToString();
+            if (skillsC == null)
+            {
+                skillsC = checkBox41.Text.ToString();
+            }
+            else
+                skillsC += "," + checkBox41.Text.ToString();
         }
 
         private void sk25_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk25.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk25.Text.ToString();
+            }
+            else
+                skillsC += "," + sk25.Text.ToString();
         }
 
         private void checkBox40_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + checkBox40.ToString();
+            if (skillsC == null)
+            {
+                skillsC = checkBox40.Text.ToString();
+            }
+            else
+                skillsC += "," + checkBox40.Text.ToString();
         }
 
         private void checkBox46_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + checkBox46.ToString();
+            if (skillsC == null)
+            {
+                skillsC = checkBox46.Text.ToString();
+            }
+            else
+                skillsC += "," + checkBox46.Text.ToString();
         }
 
         private void sk22_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk22.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk22.Text.ToString();
+            }
+            else
+                skillsC += "," + sk22.Text.ToString();
         }
 
         private void sk30_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk30.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk30.Text.ToString();
+            }
+            else
+                skillsC += "," + sk30.Text.ToString();
         }
 
         private void sk23_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk23.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk23.Text.ToString();
+            }
+            else
+                skillsC += "," + sk23.Text.ToString();
         }
 
         private void sk26_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk26.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk26.Text.ToString();
+            }
+            else
+                skillsC += "," + sk26.Text.ToString();
         }
 
         private void checkBox43_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + checkBox43.ToString();
+            if (skillsC == null)
+            {
+                skillsC = checkBox43.Text.ToString();
+            }
+            else
+                skillsC += "," + checkBox43.Text.ToString();
         }
 
         private void sk31_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk32.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk31.Text.ToString();
+            }
+            else
+                skillsC += "," + sk31.Text.ToString();
         }
 
         private void sk32_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk32.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk32.Text.ToString();
+            }
+            else
+                skillsC += "," + sk32.Text.ToString();
         }
 
         private void sk21_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk21.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk21.Text.ToString();
+            }
+            else
+                skillsC += "," + sk21.Text.ToString();
         }
 
         private void sk20_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk20.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk20.Text.ToString();
+            }
+            else
+                skillsC += "," + sk20.Text.ToString();
         }
 
         private void sk24_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk24.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk24.Text.ToString();
+            }
+            else
+                skillsC += "," + sk24.Text.ToString();
         }
 
         private void checkBox44_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + checkBox44.ToString();
+            if (skillsC == null)
+            {
+                skillsC = checkBox44.Text.ToString();
+            }
+            else
+                skillsC += "," + checkBox44.Text.ToString();
         }
 
         private void checkBox39_CheckedChanged(object sender, EventArgs e)
         {
-            skillsC += "," + checkBox39.ToString();
+            if (skillsC == null)
+            {
+                skillsC = checkBox39.Text.ToString();
+            }
+            else
+                skillsC += "," + checkBox39.Text.ToString();
         }
 
         private void sk19_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk19.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk19.Text.ToString();
+            }
+            else
+                skillsC += "," + sk19.Text.ToString();
         }
 
         private void sk18_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk18.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk18.Text.ToString();
+            }
+            else
+                skillsC += "," + sk18.Text.ToString();
         }
 
         private void sk17_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk17.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk17.Text.ToString();
+            }
+            else
+                skillsC += "," + sk17.Text.ToString();
         }
 
         private void sk28_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk28.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk28.Text.ToString();
+            }
+            else
+                skillsC += "," + sk28.Text.ToString();
         }
 
         private void sk27_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk27.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk27.Text.ToString();
+            }
+            else
+                skillsC += "," + sk27.Text.ToString();
         }
 
         private void checkBox48_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + checkBox48.ToString();
+            if (skillsC == null)
+            {
+                skillsC = checkBox48.Text.ToString();
+            }
+            else
+                skillsC += "," + checkBox48.Text.ToString();
         }
 
         private void sk29_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk29.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk29.Text.ToString();
+            }
+            else
+                skillsC += "," + sk29.Text.ToString();
         }
 
         private void sk16_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk16.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk16.Text.ToString();
+            }
+            else
+                skillsC += "," + sk16.Text.ToString();
         }
 
         private void sk14_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk14.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk14.Text.ToString();
+            }
+            else
+                skillsC += "," + sk14.Text.ToString();
         }
+
 
         private void sk13_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk13.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk13.Text.ToString();
+            }
+            else
+                skillsC += "," + sk13.Text.ToString();
         }
+
 
         private void sk12_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk12.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk12.Text.ToString();
+            }
+            else
+                skillsC += "," + sk12.Text.ToString();
         }
+
 
         private void sk11_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk11.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk11.Text.ToString();
+            }
+            else
+                skillsC += "," + sk11.Text.ToString();
         }
 
         private void sk10_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk10.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk10.Text.ToString();
+            }
+            else
+                skillsC += "," + sk10.Text.ToString();
         }
 
         private void sk9_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk9.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk9.Text.ToString();
+            }
+            else
+                skillsC += "," + sk9.Text.ToString();
         }
 
         private void sk8_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk8.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk8.Text.ToString();
+            }
+            else
+                skillsC += "," + sk8.Text.ToString();
         }
-
         private void sk7_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk7.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk7.Text.ToString();
+            }
+            else
+                skillsC += "," + sk7.Text.ToString();
         }
 
         private void sk6_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk6.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk6.Text.ToString();
+            }
+            else
+                skillsC += "," + sk6.Text.ToString();
         }
 
         private void sk5_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk5.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk5.Text.ToString();
+            }
+            else
+                skillsC += "," + sk5.Text.ToString();
         }
 
         private void sk4_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk4.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk4.Text.ToString();
+            }
+            else
+                skillsC += "," + sk4.Text.ToString();
         }
 
         private void sk3_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk3.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk3.Text.ToString();
+            }
+            else
+                skillsC += "," + sk3.Text.ToString();
         }
 
         private void sk2_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk2.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk2.Text.ToString();
+            }
+            else
+                skillsC += "," + sk2.Text.ToString();
         }
 
         private void sk1_CheckedChanged_1(object sender, EventArgs e)
         {
-            skillsC += "," + sk1.ToString();
+            if (skillsC == null)
+            {
+                skillsC = sk1.Text.ToString();
+            }
+            else
+                skillsC += "," + sk1.Text.ToString();
+
         }
     }
 }
+

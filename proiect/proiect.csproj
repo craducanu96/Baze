@@ -8,9 +8,10 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>proiect</RootNamespace>
     <AssemblyName>proiect</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,9 +33,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,17 +58,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client.cs">
+    <Compile Include="Aptitudini.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CClient.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Client.Designer.cs">
-      <DependentUpon>Client.cs</DependentUpon>
+    <Compile Include="CClient.Designer.cs">
+      <DependentUpon>CClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CCompanie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CCompanie.Designer.cs">
+      <DependentUpon>CCompanie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Companie.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Companie.Designer.cs">
-      <DependentUpon>Companie.cs</DependentUpon>
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.cs">
       <SubType>Form</SubType>
@@ -64,11 +85,32 @@
     <Compile Include="ForgotPassword.Designer.cs">
       <DependentUpon>ForgotPassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="LinkedinDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LinkedinDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LinkedinDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LinkedinDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LinkedinDataModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LogIn.Designer.cs">
       <DependentUpon>LogIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mesaje.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mesaj_Companie_Client.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Messaging.cs">
       <SubType>Form</SubType>
@@ -82,6 +124,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Rating.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Relatie.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Search.cs">
       <SubType>Form</SubType>
@@ -101,6 +149,9 @@
     <Compile Include="SentMessage.Designer.cs">
       <DependentUpon>SentMessage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sex.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SignIn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,11 +170,20 @@
     <Compile Include="Skills.Designer.cs">
       <DependentUpon>Skills.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Client.resx">
-      <DependentUpon>Client.cs</DependentUpon>
+    <Compile Include="Status.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Statut_social.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CClient.resx">
+      <DependentUpon>CClient.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Companie.resx">
-      <DependentUpon>Companie.cs</DependentUpon>
+    <EmbeddedResource Include="CCompanie.resx">
+      <DependentUpon>CCompanie.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ForgotPassword.resx">
       <DependentUpon>ForgotPassword.cs</DependentUpon>
@@ -157,6 +217,14 @@
     <EmbeddedResource Include="Skills.resx">
       <DependentUpon>Skills.cs</DependentUpon>
     </EmbeddedResource>
+    <EntityDeploy Include="LinkedinDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LinkedinDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="LinkedinDataModel.edmx.diagram">
+      <DependentUpon>LinkedinDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -175,6 +243,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\profile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LinkedinDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LinkedinDataModel.edmx</DependentUpon>
+      <LastGenOutput>LinkedinDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="LinkedinDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LinkedinDataModel.edmx</DependentUpon>
+      <LastGenOutput>LinkedinDataModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

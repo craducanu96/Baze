@@ -18,3 +18,26 @@ D:\Visual Studio Projects\baze\proiect\proiect\obj\Debug\proiect.Messaging.resou
 D:\Visual Studio Projects\baze\proiect\proiect\obj\Debug\proiect.Search.resources
 D:\Visual Studio Projects\baze\proiect\proiect\obj\Debug\proiect.SearchC.resources
 D:\Visual Studio Projects\baze\proiect\proiect\obj\Debug\proiect.SentMessage.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\bin\Debug\proiect.exe.config
+C:\Users\asus\Desktop\Proiect\Baze\proiect\bin\Debug\proiect.exe
+C:\Users\asus\Desktop\Proiect\Baze\proiect\bin\Debug\proiect.pdb
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.csprojResolveAssemblyReference.cache
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.ForgotPassword.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.Log_page.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.Messaging.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.Properties.Resources.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.Search.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.SearchC.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.SentMessage.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.SignIn.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.SignInCompany.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.Skills.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.csproj.GenerateResource.Cache
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.exe
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.pdb
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.CClient.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\obj\Debug\proiect.CCompanie.resources
+C:\Users\asus\Desktop\Proiect\Baze\proiect\bin\Debug\EntityFramework.dll
+C:\Users\asus\Desktop\Proiect\Baze\proiect\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\asus\Desktop\Proiect\Baze\proiect\bin\Debug\EntityFramework.xml
+C:\Users\asus\Desktop\Proiect\Baze\proiect\bin\Debug\EntityFramework.SqlServer.xml

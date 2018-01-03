@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LinkedinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Aptitudini">
+    <Key>
+      <PropertyRef Name="ID_Aptitudini" />
+    </Key>
+    <Property Name="ID_Aptitudini" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Aptitudine" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Clients" Relationship="Self.Aptitudini_Client" FromRole="Aptitudini" ToRole="Client" />
+    <NavigationProperty Name="Companies" Relationship="Self.Aptitudini_companie" FromRole="Aptitudini" ToRole="Companie" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ID_Client" />
+    </Key>
+    <Property Name="ID_Client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nume" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Prenume" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Data_Nasterii" Type="DateTime" Precision="3" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Poza" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Facultate_absolvita" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ID_sex" Type="Int32" Nullable="false" />
+    <Property Name="ID_statut_social" Type="Int32" Nullable="false" />
+    <Property Name="Adresa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Nationalitate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Limbi_straine" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Parola" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Mesaj_Companie_Client" Relationship="Self.FK_Mesaj_Client" FromRole="Client" ToRole="Mesaj_Companie_Client" />
+    <NavigationProperty Name="Ratings" Relationship="Self.FK_Rating_Receive" FromRole="Client" ToRole="Rating" />
+    <NavigationProperty Name="Ratings1" Relationship="Self.FK_Rating_Send" FromRole="Client" ToRole="Rating" />
+    <NavigationProperty Name="Relaties" Relationship="Self.FK_Relatie_Client_Send" FromRole="Client" ToRole="Relatie" />
+    <NavigationProperty Name="Relaties1" Relationship="Self.FK_Relatie_Receive" FromRole="Client" ToRole="Relatie" />
+    <NavigationProperty Name="Aptitudinis" Relationship="Self.Aptitudini_Client" FromRole="Client" ToRole="Aptitudini" />
+  </EntityType>
+  <EntityType Name="Companie">
+    <Key>
+      <PropertyRef Name="ID_Companie" />
+    </Key>
+    <Property Name="ID_Companie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Director_companie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Nume_companie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Adresa_companie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email_companie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Telefon_companie" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="UsernameC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParolaC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Mesaj_Companie_Client" Relationship="Self.FK_Mesaj_Companie" FromRole="Companie" ToRole="Mesaj_Companie_Client" />
+    <NavigationProperty Name="Aptitudinis" Relationship="Self.Aptitudini_companie" FromRole="Companie" ToRole="Aptitudini" />
+  </EntityType>
+  <EntityType Name="Mesaje">
+    <Key>
+      <PropertyRef Name="ID_Mesaj" />
+    </Key>
+    <Property Name="ID_Mesaj" Type="Int32" Nullable="false" />
+    <Property Name="Mesaj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Mesaj_Companie_Client" Relationship="Self.FK_Mesaj_Mesaj" FromRole="Mesaje" ToRole="Mesaj_Companie_Client" />
+  </EntityType>
+  <EntityType Name="Sex">
+    <Key>
+      <PropertyRef Name="Id_sex" />
+    </Key>
+    <Property Name="Id_sex" Type="Int32" Nullable="false" />
+    <Property Name="Sex1" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="ID_status" />
+    </Key>
+    <Property Name="ID_status" Type="Int32" Nullable="false" />
+    <Property Name="Status1" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Relaties" Relationship="Self.FK_Relatie_Status" FromRole="Status" ToRole="Relatie" />
+  </EntityType>
+  <EntityType Name="Statut_social">
+    <Key>
+      <PropertyRef Name="ID_statut_social" />
+    </Key>
+    <Property Name="ID_statut_social" Type="Int32" Nullable="false" />
+    <Property Name="Statut_social1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Mesaj_Companie_Client">
+    <Key>
+      <PropertyRef Name="ID_companie" />
+      <PropertyRef Name="ID_client" />
+      <PropertyRef Name="ID_mesaj" />
+    </Key>
+    <Property Name="ID_companie" Type="Int32" Nullable="false" />
+    <Property Name="ID_client" Type="Int32" Nullable="false" />
+    <Property Name="ID_mesaj" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Mesaj_Client" FromRole="Mesaj_Companie_Client" ToRole="Client" />
+    <NavigationProperty Name="Companie" Relationship="Self.FK_Mesaj_Companie" FromRole="Mesaj_Companie_Client" ToRole="Companie" />
+    <NavigationProperty Name="Mesaje" Relationship="Self.FK_Mesaj_Mesaj" FromRole="Mesaj_Companie_Client" ToRole="Mesaje" />
+  </EntityType>
+  <EntityType Name="Rating">
+    <Key>
+      <PropertyRef Name="ID_client_send" />
+      <PropertyRef Name="ID_client_receive" />
+      <PropertyRef Name="Nota" />
+    </Key>
+    <Property Name="ID_client_send" Type="Int32" Nullable="false" />
+    <Property Name="ID_client_receive" Type="Int32" Nullable="false" />
+    <Property Name="Nota" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Rating_Receive" FromRole="Rating" ToRole="Client" />
+    <NavigationProperty Name="Client1" Relationship="Self.FK_Rating_Send" FromRole="Rating" ToRole="Client" />
+  </EntityType>
+  <EntityType Name="Relatie">
+    <Key>
+      <PropertyRef Name="ID_client_send" />
+      <PropertyRef Name="ID_client_receive" />
+      <PropertyRef Name="ID_status" />
+    </Key>
+    <Property Name="ID_client_send" Type="Int32" Nullable="false" />
+    <Property Name="ID_client_receive" Type="Int32" Nullable="false" />
+    <Property Name="ID_status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Relatie_Client_Send" FromRole="Relatie" ToRole="Client" />
+    <NavigationProperty Name="Client1" Relationship="Self.FK_Relatie_Receive" FromRole="Relatie" ToRole="Client" />
+    <NavigationProperty Name="Status" Relationship="Self.FK_Relatie_Status" FromRole="Relatie" ToRole="Status" />
+  </EntityType>
+  <Association Name="FK_Mesaj_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Mesaj_Companie_Client" Type="Self.Mesaj_Companie_Client" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ID_Client" />
+      </Principal>
+      <Dependent Role="Mesaj_Companie_Client">
+        <PropertyRef Name="ID_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rating_Receive">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ID_Client" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="ID_client_receive" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rating_Send">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ID_Client" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="ID_client_send" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relatie_Client_Send">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Relatie" Type="Self.Relatie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ID_Client" />
+      </Principal>
+      <Dependent Role="Relatie">
+        <PropertyRef Name="ID_client_send" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relatie_Receive">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Relatie" Type="Self.Relatie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ID_Client" />
+      </Principal>
+      <Dependent Role="Relatie">
+        <PropertyRef Name="ID_client_receive" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mesaj_Companie">
+    <End Role="Companie" Type="Self.Companie" Multiplicity="1" />
+    <End Role="Mesaj_Companie_Client" Type="Self.Mesaj_Companie_Client" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Companie">
+        <PropertyRef Name="ID_Companie" />
+      </Principal>
+      <Dependent Role="Mesaj_Companie_Client">
+        <PropertyRef Name="ID_companie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mesaj_Mesaj">
+    <End Role="Mesaje" Type="Self.Mesaje" Multiplicity="1" />
+    <End Role="Mesaj_Companie_Client" Type="Self.Mesaj_Companie_Client" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mesaje">
+        <PropertyRef Name="ID_Mesaj" />
+      </Principal>
+      <Dependent Role="Mesaj_Companie_Client">
+        <PropertyRef Name="ID_mesaj" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Relatie_Status">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Relatie" Type="Self.Relatie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="ID_status" />
+      </Principal>
+      <Dependent Role="Relatie">
+        <PropertyRef Name="ID_status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Aptitudini_Client">
+    <End Role="Aptitudini" Type="Self.Aptitudini" Multiplicity="*" />
+    <End Role="Client" Type="Self.Client" Multiplicity="*" />
+  </Association>
+  <Association Name="Aptitudini_companie">
+    <End Role="Aptitudini" Type="Self.Aptitudini" Multiplicity="*" />
+    <End Role="Companie" Type="Self.Companie" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="LinkedinEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Aptitudinis" EntityType="Self.Aptitudini" />
+    <EntitySet Name="Clients" EntityType="Self.Client" />
+    <EntitySet Name="Companies" EntityType="Self.Companie" />
+    <EntitySet Name="Mesajes" EntityType="Self.Mesaje" />
+    <EntitySet Name="Sexes" EntityType="Self.Sex" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="Statut_social" EntityType="Self.Statut_social" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Mesaj_Companie_Client" EntityType="Self.Mesaj_Companie_Client" />
+    <EntitySet Name="Ratings" EntityType="Self.Rating" />
+    <EntitySet Name="Relaties" EntityType="Self.Relatie" />
+    <AssociationSet Name="FK_Mesaj_Client" Association="Self.FK_Mesaj_Client">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Mesaj_Companie_Client" EntitySet="Mesaj_Companie_Client" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rating_Receive" Association="Self.FK_Rating_Receive">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Rating" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rating_Send" Association="Self.FK_Rating_Send">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Rating" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relatie_Client_Send" Association="Self.FK_Relatie_Client_Send">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Relatie" EntitySet="Relaties" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relatie_Receive" Association="Self.FK_Relatie_Receive">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Relatie" EntitySet="Relaties" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mesaj_Companie" Association="Self.FK_Mesaj_Companie">
+      <End Role="Companie" EntitySet="Companies" />
+      <End Role="Mesaj_Companie_Client" EntitySet="Mesaj_Companie_Client" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mesaj_Mesaj" Association="Self.FK_Mesaj_Mesaj">
+      <End Role="Mesaje" EntitySet="Mesajes" />
+      <End Role="Mesaj_Companie_Client" EntitySet="Mesaj_Companie_Client" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Relatie_Status" Association="Self.FK_Relatie_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Relatie" EntitySet="Relaties" />
+    </AssociationSet>
+    <AssociationSet Name="Aptitudini_Client" Association="Self.Aptitudini_Client">
+      <End Role="Aptitudini" EntitySet="Aptitudinis" />
+      <End Role="Client" EntitySet="Clients" />
+    </AssociationSet>
+    <AssociationSet Name="Aptitudini_companie" Association="Self.Aptitudini_companie">
+      <End Role="Aptitudini" EntitySet="Aptitudinis" />
+      <End Role="Companie" EntitySet="Companies" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+</Schema>

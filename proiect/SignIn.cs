@@ -25,8 +25,55 @@ namespace proiect
         static string sex;
         static string status;
         static string nationality;
+        static Byte[] result;
         static int sex_id;
         static int status_id;
+
+        public static bool IfExistsUsername(string username)
+        {
+            int ok = 0;
+            var context = new LinkedinEntities();
+            var results = from c in context.Clients
+                          select new
+                          {
+                              c.Username
+                          };
+
+            foreach (var item in results)
+            {
+                if (item.Username.Equals(username))
+                    ok = 1;
+            }
+
+            if (ok == 1)
+                return true;
+
+            return false;
+
+        }
+
+        public static bool IfExistsEmail(string mail)
+        {
+            int ok = 0;
+            var context = new LinkedinEntities();
+            var results = from c in context.Clients
+                          select new
+                          {
+                              c.Email
+                          };
+
+            foreach (var item in results)
+            {
+                if (item.Email.Equals(mail))
+                    ok = 1;
+            }
+
+            if (ok == 1)
+                return true;
+
+            return false;
+
+        }
 
         public SignIn()
         {
@@ -38,88 +85,113 @@ namespace proiect
 
         private void SignIn_Load(object sender, EventArgs e)
         {
-           
+
         }
 
 
         private void txtFirstName_TextChanged(object sender, EventArgs e)
         {
-            firstname = txtFirstName.ToString();
-           
+            firstname = txtFirstName.Text.ToString();
         }
 
         private void txtLastName_TextChanged(object sender, EventArgs e)
         {
-            lastname = txtLastName.ToString();
-           
+            lastname = txtLastName.Text.ToString();
         }
 
         private void txtUsername_TextChanged(object sender, EventArgs e)
         {
-            username = txtLastName.ToString();
-
-            //aci se faci verificarea daca exista in baza de date
-            //trebuie ceva "live", adica gen dupa ce ai scris ceva in camp si ai trecut mai departe sa iti zica daca e bun sau nu
-            //poate gasiti voi si ma ocup eu de cum sa arate eroare
-            
+            username = txtUsername.Text.ToString();
         }
 
         private void txtPass_TextChanged(object sender, EventArgs e)
         {
-            pass = txtPass.ToString();
+            pass = txtPass.Text.ToString();
             //aici putem sa facem verificari d-alea cu cel putin litera mare, un numa un caracter...
-            
+
         }
 
         private void txtCheckPass_TextChanged(object sender, EventArgs e)
         {
-            checkpass = txtCheckPass.ToString();
-            if (pass.Equals(checkpass))
-            {
-                //staf
-              
-            }
-            
-
+            checkpass = txtCheckPass.Text.ToString();
         }
 
         private void txtEmail_TextChanged(object sender, EventArgs e)
         {
-            email = txtEmail.ToString();
-            
+            email = txtEmail.Text.ToString();
         }
 
         private void txtPhone_TextChanged(object sender, EventArgs e)
         {
-            phone = txtPhone.ToString();
-            
+            phone = txtPhone.Text.ToString();
         }
 
         private void btNext_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Register successfully",
+
+            if (username != null && IfExistsUsername(username) == true)
+            {
+                MessageBox.Show("Username already exist!",
+                "ERROR",
+               MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
+
+            else if (pass != null && checkpass != null && pass.Equals(checkpass) == false)
+            {
+                MessageBox.Show("Password dosen't match",
+                       "Warning",
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Warning);
+            }
+
+            else if (email != null && IfExistsEmail(email) == true)
+            {
+                MessageBox.Show("Email already exist!",
+                "ERROR",
+               MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
+
+            else if (firstname != null && lastname != null
+                && username != null && phone != null
+                && email != null && status != null
+                && pass != null && checkpass != null
+                && date != null && universiy != null
+                && adress != null && sex != null
+                && nationality != null && Skills.get_skill() != null)
+            {
+                MessageBox.Show("Register successfully",
                 "Information",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-            this.Close();
-            Form form = new Client();
-            form.Show();
+                this.Close();
+                CClient.inregistreaza_client(firstname, lastname, username, pass, phone, email, date, universiy, adress, sex_id, status_id, nationality, result);
+                Form form = new CClient(firstname, lastname, username, phone, email, date, universiy, adress, sex, status, nationality, Skills.get_skill());
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Some empty filled!",
+                     "ERROR",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error);
+            }
         }
 
         private void txtUniversity_TextChanged(object sender, EventArgs e)
         {
-            universiy = txtUniversity.ToString();
+            universiy = txtUniversity.Text.ToString();
         }
 
         private void txtAdress_TextChanged(object sender, EventArgs e)
         {
-            adress = txtAdress.ToString();
+            adress = txtAdress.Text.ToString();
         }
 
         private void cbSex_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string sex;
-            sex = cbSex.ToString();
+            sex = cbSex.Text.ToString();
             if (sex.Equals("Male"))
                 sex_id = 1;
             else sex_id = 2;
@@ -127,8 +199,7 @@ namespace proiect
 
         private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string status;
-            status = cbSex.ToString();
+            status = cbStatus.Text.ToString();
             if (status.Equals("Single"))
                 status_id = 1;
             else if (status.Equals("In a relationship"))
@@ -148,36 +219,39 @@ namespace proiect
 
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Image | *.jpeg *.png *.jpg |All| *.*";
-            if (ofd.ShowDialog() == DialogResult.OK)
+
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
                 pbProfile.Image = Image.FromFile(ofd.FileName);
             }
+            result = (Byte[])new ImageConverter().ConvertTo(pbProfile.Image, typeof(Byte[]));
         }
 
         private void cbDay_SelectedIndexChanged(object sender, EventArgs e)
         {
-            date = cbDay.ToString();
+            date = cbDay.Text.ToString();
         }
 
         private void cbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            date = date + ":" + cbMonth.ToString();
+            date = date + "/" + cbMonth.Text.ToString();
         }
 
         private void cbYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            date = date + ":" + cbYear.ToString();
+            date = date + "/" + cbYear.Text.ToString();
         }
 
         private void cbNationality_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nationality = cbNationality.ToString();
+            nationality = cbNationality.Text.ToString();
         }
 
         private void btSkills_Click(object sender, EventArgs e)
         {
-            Form form = new Skills();
-            form.ShowDialog();
+            Form forms = new Skills();
+            forms.ShowDialog();
         }
     }
 }
+
