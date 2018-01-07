@@ -14,12 +14,12 @@ namespace proiect
     
     public partial class Mesaj_Companie_Client
     {
+        public int ID { get; set; }
         public int ID_companie { get; set; }
         public int ID_client { get; set; }
-        public int ID_mesaj { get; set; }
+        public string Mesaj { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual Companie Companie { get; set; }
-        public virtual Mesaje Mesaje { get; set; }
     }
 }

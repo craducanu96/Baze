@@ -22,8 +22,8 @@ namespace proiect
         public static bool IfExists(string mail, string phone)
         {
             int ok = 0;
-            var context = new LinkedinEntities();
-            var results = from c in context.Clients
+            var context = new LinkedinEntities3();
+            var results = from c in context.Client
                           select new
                           {
                               c.Telefon,
@@ -39,7 +39,7 @@ namespace proiect
                 }
             }
 
-            var results1 = from c in context.Companies
+            var results1 = from c in context.Companie
                            select new
                            {
                                c.Telefon_companie,
@@ -123,8 +123,8 @@ namespace proiect
                 string hash = CClient.SecurePasswordHasher.Hash(newPass);
                 if (client_companie == "client")
                 {
-                    var context = new LinkedinEntities();
-                    var emailClient = (from c in context.Clients
+                    var context = new LinkedinEntities3();
+                    var emailClient = (from c in context.Client
                                        where c.Email.Equals(emailForgot)
                                        select c).First();
                     emailClient.Parola = hash;
@@ -133,8 +133,8 @@ namespace proiect
                 }
                 else if (client_companie == "comapanie")
                 {
-                    var context1 = new LinkedinEntities();
-                    var emailCompanie = (from c in context1.Companies
+                    var context1 = new LinkedinEntities3();
+                    var emailCompanie = (from c in context1.Companie
                                          where c.Email_companie.Equals(emailForgot)
                                          select c).First();
                     if (emailCompanie != null)

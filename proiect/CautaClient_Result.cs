@@ -10,20 +10,9 @@
 namespace proiect
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Client
+    public partial class CautaClient_Result
     {
-        public Client()
-        {
-            this.Mesaj_Companie_Client = new HashSet<Mesaj_Companie_Client>();
-            this.Rating = new HashSet<Rating>();
-            this.Rating1 = new HashSet<Rating>();
-            this.Relatie = new HashSet<Relatie>();
-            this.Relatie1 = new HashSet<Relatie>();
-            this.Aptitudini = new HashSet<Aptitudini>();
-        }
-    
         public int ID_Client { get; set; }
         public string Nume { get; set; }
         public string Prenume { get; set; }
@@ -39,12 +28,5 @@ namespace proiect
         public string Limbi_straine { get; set; }
         public string Username { get; set; }
         public string Parola { get; set; }
-    
-        public virtual ICollection<Mesaj_Companie_Client> Mesaj_Companie_Client { get; set; }
-        public virtual ICollection<Rating> Rating { get; set; }
-        public virtual ICollection<Rating> Rating1 { get; set; }
-        public virtual ICollection<Relatie> Relatie { get; set; }
-        public virtual ICollection<Relatie> Relatie1 { get; set; }
-        public virtual ICollection<Aptitudini> Aptitudini { get; set; }
     }
 }

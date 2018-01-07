@@ -28,59 +28,77 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchC));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.firstname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.message = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.companieBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.directorcompanieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numecompanieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.adresacompanieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.emailcompanieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.telefoncompanieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usernameCDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.companieBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.username,
-            this.lastname,
-            this.firstname,
-            this.rating,
-            this.message});
+            this.directorcompanieDataGridViewTextBoxColumn,
+            this.numecompanieDataGridViewTextBoxColumn,
+            this.adresacompanieDataGridViewTextBoxColumn,
+            this.emailcompanieDataGridViewTextBoxColumn,
+            this.telefoncompanieDataGridViewTextBoxColumn,
+            this.usernameCDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.companieBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(0, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(547, 459);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // username
+            // companieBindingSource
             // 
-            this.username.HeaderText = "Username";
-            this.username.Name = "username";
-            this.username.ReadOnly = true;
+            this.companieBindingSource.DataSource = typeof(proiect.Companie);
+           
+            // directorcompanieDataGridViewTextBoxColumn
             // 
-            // lastname
+            this.directorcompanieDataGridViewTextBoxColumn.DataPropertyName = "Director_companie";
+            this.directorcompanieDataGridViewTextBoxColumn.HeaderText = "Director_companie";
+            this.directorcompanieDataGridViewTextBoxColumn.Name = "directorcompanieDataGridViewTextBoxColumn";
             // 
-            this.lastname.HeaderText = "Last name";
-            this.lastname.Name = "lastname";
-            this.lastname.ReadOnly = true;
+            // numecompanieDataGridViewTextBoxColumn
             // 
-            // firstname
+            this.numecompanieDataGridViewTextBoxColumn.DataPropertyName = "Nume_companie";
+            this.numecompanieDataGridViewTextBoxColumn.HeaderText = "Nume_companie";
+            this.numecompanieDataGridViewTextBoxColumn.Name = "numecompanieDataGridViewTextBoxColumn";
             // 
-            this.firstname.HeaderText = "First name";
-            this.firstname.Name = "firstname";
-            this.firstname.ReadOnly = true;
+            // adresacompanieDataGridViewTextBoxColumn
             // 
-            // rating
+            this.adresacompanieDataGridViewTextBoxColumn.DataPropertyName = "Adresa_companie";
+            this.adresacompanieDataGridViewTextBoxColumn.HeaderText = "Adresa_companie";
+            this.adresacompanieDataGridViewTextBoxColumn.Name = "adresacompanieDataGridViewTextBoxColumn";
             // 
-            this.rating.HeaderText = "Rating";
-            this.rating.Name = "rating";
-            this.rating.ReadOnly = true;
+            // emailcompanieDataGridViewTextBoxColumn
             // 
-            // message
+            this.emailcompanieDataGridViewTextBoxColumn.DataPropertyName = "Email_companie";
+            this.emailcompanieDataGridViewTextBoxColumn.HeaderText = "Email_companie";
+            this.emailcompanieDataGridViewTextBoxColumn.Name = "emailcompanieDataGridViewTextBoxColumn";
             // 
-            this.message.HeaderText = "Message";
-            this.message.Name = "message";
+            // telefoncompanieDataGridViewTextBoxColumn
+            // 
+            this.telefoncompanieDataGridViewTextBoxColumn.DataPropertyName = "Telefon_companie";
+            this.telefoncompanieDataGridViewTextBoxColumn.HeaderText = "Telefon_companie";
+            this.telefoncompanieDataGridViewTextBoxColumn.Name = "telefoncompanieDataGridViewTextBoxColumn";
+            // 
+            // usernameCDataGridViewTextBoxColumn
+            // 
+            this.usernameCDataGridViewTextBoxColumn.DataPropertyName = "UsernameC";
+            this.usernameCDataGridViewTextBoxColumn.HeaderText = "UsernameC";
+            this.usernameCDataGridViewTextBoxColumn.Name = "usernameCDataGridViewTextBoxColumn";
             // 
             // SearchC
             // 
@@ -96,6 +114,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SearchC";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.companieBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -103,10 +122,13 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn username;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn firstname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rating;
         private System.Windows.Forms.DataGridViewButtonColumn message;
+        private System.Windows.Forms.DataGridViewTextBoxColumn directorcompanieDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numecompanieDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn adresacompanieDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn emailcompanieDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn telefoncompanieDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usernameCDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource companieBindingSource;
     }
 }

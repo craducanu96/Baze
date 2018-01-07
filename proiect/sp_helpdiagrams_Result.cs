@@ -10,20 +10,13 @@
 namespace proiect
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Aptitudini
+    public partial class sp_helpdiagrams_Result
     {
-        public Aptitudini()
-        {
-            this.Client = new HashSet<Client>();
-            this.Companie = new HashSet<Companie>();
-        }
-    
-        public int ID_Aptitudini { get; set; }
-        public string Aptitudine { get; set; }
-    
-        public virtual ICollection<Client> Client { get; set; }
-        public virtual ICollection<Companie> Companie { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

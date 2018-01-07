@@ -14,6 +14,7 @@ namespace proiect
     
     public partial class Relatie
     {
+        public int ID { get; set; }
         public int ID_client_send { get; set; }
         public int ID_client_receive { get; set; }
         public int ID_status { get; set; }

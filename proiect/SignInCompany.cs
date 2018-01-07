@@ -30,8 +30,8 @@ namespace proiect
         public static bool IfExistsCompany(string company)
         {
             int ok = 0;
-            var context = new LinkedinEntities();
-            var results = from c in context.Companies
+            var context = new LinkedinEntities3();
+            var results = from c in context.Companie
                           select new
                           {
                               c.Nume_companie

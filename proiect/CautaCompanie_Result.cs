@@ -10,20 +10,16 @@
 namespace proiect
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Aptitudini
+    public partial class CautaCompanie_Result
     {
-        public Aptitudini()
-        {
-            this.Client = new HashSet<Client>();
-            this.Companie = new HashSet<Companie>();
-        }
-    
-        public int ID_Aptitudini { get; set; }
-        public string Aptitudine { get; set; }
-    
-        public virtual ICollection<Client> Client { get; set; }
-        public virtual ICollection<Companie> Companie { get; set; }
+        public int ID_Companie { get; set; }
+        public string Director_companie { get; set; }
+        public string Nume_companie { get; set; }
+        public string Adresa_companie { get; set; }
+        public string Email_companie { get; set; }
+        public string Telefon_companie { get; set; }
+        public string UsernameC { get; set; }
+        public string ParolaC { get; set; }
     }
 }

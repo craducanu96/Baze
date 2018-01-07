@@ -87,7 +87,7 @@ namespace proiect
             string skills = SignInCompany.get_skillsC();
             string[] words = skills.Split(delimiters);
 
-            var contextC = new LinkedinEntities();
+            var contextC = new LinkedinEntities3();
             var newCompanie = new Companie()
             {
                 Nume_companie = nume,
@@ -102,17 +102,17 @@ namespace proiect
             foreach (string s in words)
             {
                 Aptitudini apt = new Aptitudini { Aptitudine = s };
-                newCompanie.Aptitudinis.Add(apt);
+                newCompanie.Aptitudini.Add(apt);
             }
 
-            using (var context = new LinkedinEntities())
+            using (var context = new LinkedinEntities3())
             {
-                context.Companies.Add(newCompanie);
+                context.Companie.Add(newCompanie);
                 context.SaveChanges();
             }
 
         }
-
+        public static int id_companie_logata;
         public CCompanie(string director, string nume, string adresa, string email, string telefon, string SkillsC)
         {
             InitializeComponent();
@@ -132,7 +132,13 @@ namespace proiect
             {
                 txtSkillsRequest.Text += s + ' ';
             }
+            using (var context = new LinkedinEntities3())
+            {
+                id_companie_logata = (from c in context.Companie
+                                   where c.UsernameC.Equals(nume)
+                                   select c.ID_Companie).First();
 
+            }
         }
 
         private void lbDetails_Click(object sender, EventArgs e)
@@ -159,15 +165,50 @@ namespace proiect
 
         private void txtSearch_TextChanged_1(object sender, EventArgs e)
         {
-            search = txtSearch.ToString();
+            search = txtSearch.Text.ToString();
         }
 
         private void btSearch_Click(object sender, EventArgs e)
         {
             if (search != null)
             {
-                Form form = new SearchC(search);
-                form.Show();
+                if (search != null)
+                {
+
+                    using (var context = new LinkedinEntities3())
+                    {
+                        var results = from c in context.Client
+                                      where c.Nume.Contains(search) || c.Prenume.Contains(search)
+                                      select c;
+                        if (results.Any())
+                        {
+
+                            Form form = new Search(search, "Companie", id_companie_logata);
+                           
+                            form.Show();
+
+                        }
+                        else
+                        {
+                            var results1 = from c in context.Companie
+                                           where c.Nume_companie.Contains(search)
+                                           select c;
+                            if (results1.Any())
+                            {
+
+                                Form form = new SearchC(search, id_companie_logata);
+                                form.Show();
+                            }
+                            else MessageBox.Show("Utilizatorul nu exista!");
+
+
+                        }
+
+
+
+                    }
+
+                }
             }
             else
             {

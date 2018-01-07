@@ -12,18 +12,12 @@ namespace proiect
     using System;
     using System.Collections.Generic;
     
-    public partial class Aptitudini
+    public partial class sysdiagrams
     {
-        public Aptitudini()
-        {
-            this.Client = new HashSet<Client>();
-            this.Companie = new HashSet<Companie>();
-        }
-    
-        public int ID_Aptitudini { get; set; }
-        public string Aptitudine { get; set; }
-    
-        public virtual ICollection<Client> Client { get; set; }
-        public virtual ICollection<Companie> Companie { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

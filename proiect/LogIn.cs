@@ -19,11 +19,11 @@ namespace proiect
 
         public static string skills(int id_client)
         {
-            using (var context = new LinkedinEntities())
+            using (var context = new LinkedinEntities3())
             {
-                var results = context.Clients.Include("Aptitudinis").Where(s => s.ID_Client == id_client).FirstOrDefault<Client>();
+                var results = context.Client.Include("Aptitudini").Where(s => s.ID_Client == id_client).FirstOrDefault<Client>();
 
-                foreach (var item in results.Aptitudinis)
+                foreach (var item in results.Aptitudini)
                 {
                     skill += item.Aptitudine;
                     skill += ",";
@@ -34,11 +34,11 @@ namespace proiect
 
         public static string skillsC(int id_companie)
         {
-            using (var context = new LinkedinEntities())
+            using (var context = new LinkedinEntities3())
             {
-                var results = context.Companies.Include("Aptitudinis").Where(s => s.ID_Companie == id_companie).FirstOrDefault<Companie>();
+                var results = context.Companie.Include("Aptitudini").Where(s => s.ID_Companie == id_companie).FirstOrDefault<Companie>();
 
-                foreach (var item in results.Aptitudinis)
+                foreach (var item in results.Aptitudini)
                 {
                     skillC += item.Aptitudine;
                     skillC += ",";
@@ -50,8 +50,8 @@ namespace proiect
         public static bool IfCompany(string user, string pass)
         {
             int ok = 0;
-            var context = new LinkedinEntities();
-            var results = from c in context.Companies
+            var context = new LinkedinEntities3();
+            var results = from c in context.Companie
                           select new
                           {
                               c.UsernameC,
@@ -76,8 +76,8 @@ namespace proiect
         public static bool IfClient(string user, string pass)
         {
             int ok = 0;
-            var context = new LinkedinEntities();
-            var results = from c in context.Clients
+            var context = new LinkedinEntities3();
+            var results = from c in context.Client
                           select new
                           {
                               c.Username,
@@ -152,8 +152,8 @@ namespace proiect
 
                 if (IfCompany(username, password) == true)
                 {
-                    var context = new LinkedinEntities();
-                    var results = from c in context.Companies
+                    var context = new LinkedinEntities3();
+                    var results = from c in context.Companie
                                   where c.UsernameC.Equals(username)
                                   select new
                                   {
@@ -181,8 +181,8 @@ namespace proiect
                 }
                 else if (IfClient(username, password) == true)
                 {
-                    var context = new LinkedinEntities();
-                    var results = from c in context.Clients
+                    var context = new LinkedinEntities3();
+                    var results = from c in context.Client
                                   where c.Username.Equals(username)
                                   select new
                                   {

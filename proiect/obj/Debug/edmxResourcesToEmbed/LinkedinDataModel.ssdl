@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="LinkedinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="LinkedinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Aptitudini">
     <Key>
       <PropertyRef Name="ID_Aptitudini" />
@@ -56,45 +56,29 @@
     <Property Name="UsernameC" Type="nvarchar" MaxLength="50" />
     <Property Name="ParolaC" Type="nvarchar(max)" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Linkedin.dbo.Mesaj_Companie_Client' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Mesaj_Companie_Client">
     <Key>
-      <PropertyRef Name="ID_companie" />
-      <PropertyRef Name="ID_client" />
-      <PropertyRef Name="ID_mesaj" />
+      <PropertyRef Name="ID" />
     </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_companie" Type="int" Nullable="false" />
     <Property Name="ID_client" Type="int" Nullable="false" />
-    <Property Name="ID_mesaj" Type="int" Nullable="false" />
+    <Property Name="Mesaj" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
-  <EntityType Name="Mesaje">
-    <Key>
-      <PropertyRef Name="ID_Mesaj" />
-    </Key>
-    <Property Name="ID_Mesaj" Type="int" Nullable="false" />
-    <Property Name="Mesaj" Type="nvarchar" MaxLength="50" Nullable="false" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Linkedin.dbo.Rating' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Rating">
     <Key>
-      <PropertyRef Name="ID_client_send" />
-      <PropertyRef Name="ID_client_receive" />
-      <PropertyRef Name="Nota" />
+      <PropertyRef Name="ID" />
     </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_client_send" Type="int" Nullable="false" />
     <Property Name="ID_client_receive" Type="int" Nullable="false" />
     <Property Name="Nota" Type="int" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Linkedin.dbo.Relatie' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Relatie">
     <Key>
-      <PropertyRef Name="ID_client_send" />
-      <PropertyRef Name="ID_client_receive" />
-      <PropertyRef Name="ID_status" />
+      <PropertyRef Name="ID" />
     </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_client_send" Type="int" Nullable="false" />
     <Property Name="ID_client_receive" Type="int" Nullable="false" />
     <Property Name="ID_status" Type="int" Nullable="false" />
@@ -130,6 +114,17 @@ warning 6002: The table/view 'Linkedin.dbo.Relatie' does not have a primary key 
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Linkedin.dbo.NUME' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="NUME">
+          <Property Name="Nume" Type="nvarchar" MaxLength="101" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="NUME_CLIENT">
+          <Property Name="Nume" Type="nvarchar" MaxLength="50" />
+          <Property Name="Prenume" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
   <Association Name="FK_Aptitudini_Client">
     <End Role="Aptitudini" Type="Self.Aptitudini" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -186,7 +181,7 @@ warning 6002: The table/view 'Linkedin.dbo.Relatie' does not have a primary key 
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Mesaj_Client">
+  <Association Name="FK_Mesaj_Companie_Client_Client">
     <End Role="Client" Type="Self.Client" Multiplicity="1" />
     <End Role="Mesaj_Companie_Client" Type="Self.Mesaj_Companie_Client" Multiplicity="*" />
     <ReferentialConstraint>
@@ -198,7 +193,7 @@ warning 6002: The table/view 'Linkedin.dbo.Relatie' does not have a primary key 
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Mesaj_Companie">
+  <Association Name="FK_Mesaj_Companie_Client_Companie">
     <End Role="Companie" Type="Self.Companie" Multiplicity="1" />
     <End Role="Mesaj_Companie_Client" Type="Self.Mesaj_Companie_Client" Multiplicity="*" />
     <ReferentialConstraint>
@@ -207,18 +202,6 @@ warning 6002: The table/view 'Linkedin.dbo.Relatie' does not have a primary key 
       </Principal>
       <Dependent Role="Mesaj_Companie_Client">
         <PropertyRef Name="ID_companie" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Mesaj_Mesaj">
-    <End Role="Mesaje" Type="Self.Mesaje" Multiplicity="1" />
-    <End Role="Mesaj_Companie_Client" Type="Self.Mesaj_Companie_Client" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Mesaje">
-        <PropertyRef Name="ID_Mesaj" />
-      </Principal>
-      <Dependent Role="Mesaj_Companie_Client">
-        <PropertyRef Name="ID_mesaj" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -282,7 +265,17 @@ warning 6002: The table/view 'Linkedin.dbo.Relatie' does not have a primary key 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="CautaClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nume" Type="nvarchar" Mode="In" />
+    <Parameter Name="prenume" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="CautaCompanie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nume" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="Procedura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nume" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -319,32 +312,13 @@ warning 6002: The table/view 'Linkedin.dbo.Relatie' does not have a primary key 
     <EntitySet Name="Aptitudini_companie" EntityType="Self.Aptitudini_companie" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Companie" EntityType="Self.Companie" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Mesaje" EntityType="Self.Mesaje" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mesaj_Companie_Client" EntityType="Self.Mesaj_Companie_Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Relatie" EntityType="Self.Relatie" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Statut_social" EntityType="Self.Statut_social" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Mesaj_Companie_Client" EntityType="Self.Mesaj_Companie_Client" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Mesaj_Companie_Client].[ID_companie] AS [ID_companie], 
-    [Mesaj_Companie_Client].[ID_client] AS [ID_client], 
-    [Mesaj_Companie_Client].[ID_mesaj] AS [ID_mesaj]
-    FROM [dbo].[Mesaj_Companie_Client] AS [Mesaj_Companie_Client]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Rating" EntityType="Self.Rating" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Rating].[ID_client_send] AS [ID_client_send], 
-    [Rating].[ID_client_receive] AS [ID_client_receive], 
-    [Rating].[Nota] AS [Nota]
-    FROM [dbo].[Rating] AS [Rating]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Relatie" EntityType="Self.Relatie" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Relatie].[ID_client_send] AS [ID_client_send], 
-    [Relatie].[ID_client_receive] AS [ID_client_receive], 
-    [Relatie].[ID_status] AS [ID_status]
-    FROM [dbo].[Relatie] AS [Relatie]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_Aptitudini_Client" Association="Self.FK_Aptitudini_Client">
       <End Role="Aptitudini" EntitySet="Aptitudini" />
       <End Role="Aptitudini_Client" EntitySet="Aptitudini_Client" />
@@ -361,16 +335,12 @@ warning 6002: The table/view 'Linkedin.dbo.Relatie' does not have a primary key 
       <End Role="Companie" EntitySet="Companie" />
       <End Role="Aptitudini_companie" EntitySet="Aptitudini_companie" />
     </AssociationSet>
-    <AssociationSet Name="FK_Mesaj_Client" Association="Self.FK_Mesaj_Client">
+    <AssociationSet Name="FK_Mesaj_Companie_Client_Client" Association="Self.FK_Mesaj_Companie_Client_Client">
       <End Role="Client" EntitySet="Client" />
       <End Role="Mesaj_Companie_Client" EntitySet="Mesaj_Companie_Client" />
     </AssociationSet>
-    <AssociationSet Name="FK_Mesaj_Companie" Association="Self.FK_Mesaj_Companie">
+    <AssociationSet Name="FK_Mesaj_Companie_Client_Companie" Association="Self.FK_Mesaj_Companie_Client_Companie">
       <End Role="Companie" EntitySet="Companie" />
-      <End Role="Mesaj_Companie_Client" EntitySet="Mesaj_Companie_Client" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Mesaj_Mesaj" Association="Self.FK_Mesaj_Mesaj">
-      <End Role="Mesaje" EntitySet="Mesaje" />
       <End Role="Mesaj_Companie_Client" EntitySet="Mesaj_Companie_Client" />
     </AssociationSet>
     <AssociationSet Name="FK_Rating_Receive" Association="Self.FK_Rating_Receive">

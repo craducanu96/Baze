@@ -13,21 +13,46 @@ namespace proiect
     public partial class SentMessage : Form
     {
         public static string message;
+        public static int emitator, receptor;
 
-        public SentMessage(string dest)
+        public SentMessage(string desti,int emi)
         {
             InitializeComponent();
+            emitator = emi;
+            receptor = Int32.Parse(desti);
+            
+        
         }
 
         private void txtMessage_TextChanged(object sender, EventArgs e)
         {
-            message = txtMessage.ToString();
+            message = txtMessage.Text.ToString();
+           
         }
 
         private void btSend_Click(object sender, EventArgs e)
         {
             if (message != null)
             {
+
+
+                var newmessage = new Mesaj_Companie_Client()
+                {
+                    ID_client=receptor,
+                    ID_companie=emitator,
+                    Mesaj=message
+
+                };
+              
+                
+
+                using (var context = new LinkedinEntities3())
+                {
+                    context.Mesaj_Companie_Client.Add(newmessage);
+                    context.SaveChanges();
+                }
+                
+
                 MessageBox.Show("Message was sent",
                     "Information",
                     MessageBoxButtons.OK,

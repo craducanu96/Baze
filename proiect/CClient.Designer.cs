@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CClient));
             this.picMessaging = new System.Windows.Forms.PictureBox();
             this.picRequest = new System.Windows.Forms.PictureBox();
@@ -53,7 +54,6 @@
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.txtUniversiy = new System.Windows.Forms.TextBox();
             this.txtAddress = new System.Windows.Forms.TextBox();
-            this.trackBar = new System.Windows.Forms.TrackBar();
             this.lbRating = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.bSearch = new System.Windows.Forms.Button();
@@ -62,13 +62,15 @@
             this.username = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.confirm = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btLogOut = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picMessaging)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRequest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMe)).BeginInit();
             this.panelDetails.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panelNotification.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // picMessaging
@@ -98,6 +100,7 @@
             this.picMe.Size = new System.Drawing.Size(100, 100);
             this.picMe.TabIndex = 2;
             this.picMe.TabStop = false;
+            this.picMe.Click += new System.EventHandler(this.picMe_Click);
             // 
             // lbUsername
             // 
@@ -296,16 +299,7 @@
             this.txtAddress.ReadOnly = true;
             this.txtAddress.Size = new System.Drawing.Size(121, 20);
             this.txtAddress.TabIndex = 0;
-            // 
-            // trackBar
-            // 
-            this.trackBar.Enabled = false;
-            this.trackBar.Location = new System.Drawing.Point(54, 163);
-            this.trackBar.Name = "trackBar";
-            this.trackBar.Size = new System.Drawing.Size(121, 45);
-            this.trackBar.TabIndex = 6;
-            this.trackBar.Value = 5;
-            this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
+            this.txtAddress.TextChanged += new System.EventHandler(this.txtAddress_TextChanged);
             // 
             // lbRating
             // 
@@ -377,17 +371,30 @@
             this.btLogOut.UseVisualStyleBackColor = true;
             this.btLogOut.Click += new System.EventHandler(this.btLogOut_Click);
             // 
-            // Client
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(54, 173);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(28, 17);
+            this.listBox1.TabIndex = 20;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(proiect.Client);
+            // 
+            // CClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 489);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btLogOut);
             this.Controls.Add(this.panelNotification);
             this.Controls.Add(this.bSearch);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.lbRating);
-            this.Controls.Add(this.trackBar);
             this.Controls.Add(this.panelDetails);
             this.Controls.Add(this.lbDetails);
             this.Controls.Add(this.lbUsername);
@@ -398,7 +405,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Client";
+            this.Name = "CClient";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Client";
             ((System.ComponentModel.ISupportInitialize)(this.picMessaging)).EndInit();
@@ -406,9 +413,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.picMe)).EndInit();
             this.panelDetails.ResumeLayout(false);
             this.panelDetails.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             this.panelNotification.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -438,7 +445,6 @@
         private System.Windows.Forms.Label lbBirth;
         private System.Windows.Forms.Label lbEmail;
         private System.Windows.Forms.Label lbNationality;
-        private System.Windows.Forms.TrackBar trackBar;
         private System.Windows.Forms.Label lbRating;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label lbSkills;
@@ -449,5 +455,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn username;
         private System.Windows.Forms.DataGridViewButtonColumn confirm;
         private System.Windows.Forms.Button btLogOut;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }

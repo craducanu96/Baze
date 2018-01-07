@@ -32,8 +32,8 @@ namespace proiect
         public static bool IfExistsUsername(string username)
         {
             int ok = 0;
-            var context = new LinkedinEntities();
-            var results = from c in context.Clients
+            var context = new LinkedinEntities3();
+            var results = from c in context.Client
                           select new
                           {
                               c.Username
@@ -55,8 +55,8 @@ namespace proiect
         public static bool IfExistsEmail(string mail)
         {
             int ok = 0;
-            var context = new LinkedinEntities();
-            var results = from c in context.Clients
+            var context = new LinkedinEntities3();
+            var results = from c in context.Client
                           select new
                           {
                               c.Email

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.IO;
 using System.Data;
+using System.Globalization;
 using System.Data.SqlClient;
 
 namespace proiect
@@ -110,7 +111,11 @@ namespace proiect
         public static void inregistreaza_client(string firstname, string lastname, string username, string pass, string phone, string email, string date, string university, string address, int sex_id, int status_id, string nationality, Byte[] result)
         {
 
-            DateTime myDate = Convert.ToDateTime(date);
+           
+            string format = "dd/MM/yyyy";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+
+            DateTime myDate = DateTime.ParseExact(date, format, provider);
 
             string hash = SecurePasswordHasher.Hash(pass);
             var verifica = SecurePasswordHasher.Verify(pass, hash);
@@ -141,17 +146,17 @@ namespace proiect
             foreach (string s in words)
             {
                 Aptitudini apt = new Aptitudini { Aptitudine = s };
-                newClient.Aptitudinis.Add(apt);
+                newClient.Aptitudini.Add(apt);
             }
 
-            using (var context = new LinkedinEntities())
+            using (var context = new LinkedinEntities3())
             {
-                context.Clients.Add(newClient);
+                context.Client.Add(newClient);
                 context.SaveChanges();
             }
 
         }
-
+        int id_client_logat;
         public CClient(string firstname, string lastname, string username, string phone, string email, string date, string university, string address, string sex, string status, string nationality, string skills)
         {
             InitializeComponent();
@@ -171,13 +176,44 @@ namespace proiect
             txtSex.Text = sex;
             txtStatus.Text = status;
             txtUniversiy.Text = university;
-
+           
             char[] delimiters = { ',' };
             string[] words = skills.Split(delimiters);
 
             foreach (string s in words)
             {
                 listSkils.Items.Add(s);
+            }
+            using (var context = new LinkedinEntities3())
+            {
+                id_client_logat = (from c in context.Client
+                                   where c.Username.Equals(username)
+                                   select c.ID_Client).First();
+
+            }
+            using (var context = new LinkedinEntities3())
+            {
+                int count = (from o in context.Rating
+                             where o.ID_client_receive == id_client_logat
+                             select o).Count();
+                var note = from o in context.Rating
+                           where o.ID_client_receive == id_client_logat
+                           select o.Nota;
+                int suma = 0;
+
+                foreach (int nota in note)
+                {
+                    suma += nota;
+                }
+                if (count != 0)
+                {
+                    float medie = suma / count;
+                    listBox1.Items.Add(medie.ToString());
+                }
+                else
+                {
+                    listBox1.Items.Add(suma.ToString());
+                }
             }
 
         }
@@ -213,14 +249,10 @@ namespace proiect
 
         }
 
-        private void trackBar_Scroll(object sender, EventArgs e)
-        {
-            rating = trackBar.ToString();
-        }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            search = txtSearch.ToString();
+            search = txtSearch.Text.ToString();
         }
 
         private void bSearch_Click(object sender, EventArgs e)
@@ -228,8 +260,33 @@ namespace proiect
             //aici trebuie sa cautati in baza de date si sa afisati in gridView
             if (search != null)
             {
-                Form form = new Search(search);
-                form.Show();
+
+                using (var context = new LinkedinEntities3())
+                {
+                    var results = from c in context.Client
+                                  where c.Nume.Contains(search) || c.Prenume.Contains(search)
+                                  select c;
+                    if (results.Any())
+                    {
+
+                        Form form = new Search(search, "Client", id_client_logat);
+                        form.Show();
+
+                    }
+                    else
+                    {
+                        var results1 = from c in context.Companie
+                                       where c.Nume_companie.Contains(search)
+                                       select c;
+                        if (results1.Any())
+                        {
+
+                            Form form = new SearchC(search, id_client_logat);
+                            form.Show();
+                        }
+                        else MessageBox.Show("Utilizatorul nu exista!");
+                    }
+                }
             }
             else
             {
@@ -252,6 +309,23 @@ namespace proiect
         private void btLogOut_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+
+           
+        }
+
+        private void picMe_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtAddress_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
