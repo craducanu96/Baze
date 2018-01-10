@@ -281,7 +281,7 @@ namespace proiect
                         if (results1.Any())
                         {
 
-                            Form form = new SearchC(search, id_client_logat);
+                            Form form = new SearchC(search,"Client", id_client_logat);
                             form.Show();
                         }
                         else MessageBox.Show("Utilizatorul nu exista!");

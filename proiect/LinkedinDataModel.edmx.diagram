@@ -8,22 +8,28 @@
         <EntityTypeShape EntityType="LinkedinModel.Aptitudini" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkedinModel.Client" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkedinModel.Companie" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LinkedinModel.Mesaj_Companie_Client" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkedinModel.Rating" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkedinModel.Relatie" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkedinModel.Sex" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkedinModel.Status" Width="1.5" PointX="6" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkedinModel.Statut_social" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkedinModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
-        <AssociationConnector Association="LinkedinModel.FK_Mesaj_Companie_Client_Client" ManuallyRouted="false" />
         <AssociationConnector Association="LinkedinModel.FK_Rating_Receive" ManuallyRouted="false" />
         <AssociationConnector Association="LinkedinModel.FK_Rating_Send" ManuallyRouted="false" />
         <AssociationConnector Association="LinkedinModel.FK_Relatie_Client_Send" ManuallyRouted="false" />
         <AssociationConnector Association="LinkedinModel.FK_Relatie_Receive" ManuallyRouted="false" />
-        <AssociationConnector Association="LinkedinModel.FK_Mesaj_Companie_Client_Companie" ManuallyRouted="false" />
         <AssociationConnector Association="LinkedinModel.FK_Relatie_Status" ManuallyRouted="false" />
         <AssociationConnector Association="LinkedinModel.Aptitudini_Client" ManuallyRouted="false" />
         <AssociationConnector Association="LinkedinModel.Aptitudini_companie" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LinkedinModel.Mesaj_Client_Client" Width="1.5" PointX="5.25" PointY="10.625" />
+        <EntityTypeShape EntityType="LinkedinModel.Mesaj_Client_Companie" Width="1.5" PointX="8.25" PointY="11.375" />
+        <EntityTypeShape EntityType="LinkedinModel.Mesaj_Companie_Client" Width="1.5" PointX="5.25" PointY="4.375" />
+        <AssociationConnector Association="LinkedinModel.FK_Mesaj_Client_Client_Client" />
+        <AssociationConnector Association="LinkedinModel.FK_Mesaj_Client_Client_Client1" />
+        <AssociationConnector Association="LinkedinModel.FK_Mesaj_Client_Companie_Client" />
+        <AssociationConnector Association="LinkedinModel.FK_Mesaj_Companie_Client_Client" />
+        <AssociationConnector Association="LinkedinModel.FK_Mesaj_Client_Companie_Companie" />
+        <AssociationConnector Association="LinkedinModel.FK_Mesaj_Companie_Client_Companie" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

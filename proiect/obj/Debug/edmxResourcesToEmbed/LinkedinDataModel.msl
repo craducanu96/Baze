@@ -44,16 +44,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Mesaj_Companie_Client">
-      <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Companie_Client">
-        <MappingFragment StoreEntitySet="Mesaj_Companie_Client">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="ID_companie" ColumnName="ID_companie" />
-          <ScalarProperty Name="ID_client" ColumnName="ID_client" />
-          <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Rating">
       <EntityTypeMapping TypeName="LinkedinModel.Rating">
         <MappingFragment StoreEntitySet="Rating">
@@ -192,5 +182,35 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="LinkedinModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="LinkedinModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="Mesaj_Client_Client">
+      <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Client_Client">
+        <MappingFragment StoreEntitySet="Mesaj_Client_Client">
+          <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+          <ScalarProperty Name="ID_Client_Send" ColumnName="ID_Client_Send" />
+          <ScalarProperty Name="ID_Client_Receive" ColumnName="ID_Client_Receive" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mesaj_Client_Companie">
+      <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Client_Companie">
+        <MappingFragment StoreEntitySet="Mesaj_Client_Companie">
+          <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+          <ScalarProperty Name="ID_Companie_receive" ColumnName="ID_Companie_receive" />
+          <ScalarProperty Name="ID_Client_send" ColumnName="ID_Client_send" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mesaj_Companie_Client">
+      <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Companie_Client">
+        <MappingFragment StoreEntitySet="Mesaj_Companie_Client">
+          <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+          <ScalarProperty Name="ID_client" ColumnName="ID_client" />
+          <ScalarProperty Name="ID_companie" ColumnName="ID_companie" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

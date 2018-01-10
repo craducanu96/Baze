@@ -196,7 +196,7 @@ namespace proiect
                             if (results1.Any())
                             {
 
-                                Form form = new SearchC(search, id_companie_logata);
+                                Form form = new SearchC(search,"Companie", id_companie_logata);
                                 form.Show();
                             }
                             else MessageBox.Show("Utilizatorul nu exista!");

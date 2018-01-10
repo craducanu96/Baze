@@ -104,9 +104,18 @@ namespace proiect
                 
                     abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
 
-                    Form form = new SentMessage(abc, id_cel_care_e_conectat);
+                    Form form = new SentMessage(abc, id_cel_care_e_conectat,"Companie-Client");
                     form.Show();
                 
+            }
+            else if (dataGridView1.Columns.Contains("SendMessageClient") && dataGridView1.Columns["SendMessageClient"].Visible && e.ColumnIndex == dataGridView1.Columns["SendMessageClient"].Index)
+            {
+
+                abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
+
+                Form form = new SentMessage(abc, id_cel_care_e_conectat,"Client-Client");
+                form.Show();
+
             }
             else
                 if (dataGridView1.Columns.Contains("SendRelation") && dataGridView1.Columns["SendRelation"].Visible && e.ColumnIndex == dataGridView1.Columns["SendRelation"].Index)
@@ -134,6 +143,18 @@ namespace proiect
                    {
                        context.Relatie.Add(newrelatie);
                        context.SaveChanges();
+                       MessageBox.Show("Request was sent",
+                  "Information",
+                  MessageBoxButtons.OK,
+                  MessageBoxIcon.Information);
+                      
+                   }
+                   else
+                   {
+                       MessageBox.Show("There was another request sent",
+                 "Information",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Information);
                    }
                    }
 
@@ -158,6 +179,18 @@ namespace proiect
                         {
                             context.Relatie.Add(newrelatie);
                             context.SaveChanges();
+                            MessageBox.Show("Request was sent",
+                       "Information",
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Information);
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("There was another request sent",
+                      "Information",
+                      MessageBoxButtons.OK,
+                      MessageBoxIcon.Information);
                         }
                     }
 
@@ -194,6 +227,10 @@ namespace proiect
                             {
                                 context.Rating.Add(newrating);
                                 context.SaveChanges();
+                                MessageBox.Show("Rating was sent",
+                 "Information",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Information);
                             }
 
                         }
@@ -212,6 +249,10 @@ namespace proiect
                                 {
                                     context.Rating.Add(newrating);
                                     context.SaveChanges();
+                                    MessageBox.Show("Rating was sent",
+                "Information",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
                                 }
 
                             }
@@ -230,6 +271,10 @@ namespace proiect
                                     {
                                         context.Rating.Add(newrating);
                                         context.SaveChanges();
+                                        MessageBox.Show("Rating was sent",
+                "Information",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
                                     }
 
                                 }
@@ -248,6 +293,10 @@ namespace proiect
                                         {
                                             context.Rating.Add(newrating);
                                             context.SaveChanges();
+                                            MessageBox.Show("Rating was sent",
+                "Information",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
                                         }
 
                                     }
@@ -266,9 +315,20 @@ namespace proiect
                                             {
                                                 context.Rating.Add(newrating);
                                                 context.SaveChanges();
+                                                MessageBox.Show("Rating was sent",
+                "Information",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
                                             }
 
                                         }
+                          }
+                          else
+                          {
+                              MessageBox.Show("You have already rated this person!",
+                                  "Information",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Information);
                           }
                     }
         }

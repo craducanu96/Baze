@@ -117,6 +117,12 @@
     <Compile Include="LogIn.Designer.cs">
       <DependentUpon>LogIn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mesaj_Client_Client.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mesaj_Client_Companie.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Mesaj_Companie_Client.cs">
       <DependentUpon>LinkedinDataModel.tt</DependentUpon>
     </Compile>

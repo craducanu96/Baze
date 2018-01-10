@@ -14,12 +14,29 @@ namespace proiect
     {
         public static string message;
         public static int emitator, receptor;
-
-        public SentMessage(string desti,int emi)
+        public static int ok;
+        public SentMessage(string desti,int emi,string tip)
         {
-            InitializeComponent();
+           InitializeComponent();
             emitator = emi;
             receptor = Int32.Parse(desti);
+
+            if (tip.Equals("Client-Client"))
+            {
+                ok = 0;
+
+            }
+            else if (tip.Equals("Companie-Client"))
+            {
+                ok = 1;
+
+            }
+            else if (tip.Equals("Client-Companie"))
+            {
+                ok = 2;
+
+            }
+           
             
         
         }
@@ -35,22 +52,55 @@ namespace proiect
             if (message != null)
             {
 
-
-                var newmessage = new Mesaj_Companie_Client()
+                if (ok == 1)
                 {
-                    ID_client=receptor,
-                    ID_companie=emitator,
-                    Mesaj=message
+                    var newmessage = new Mesaj_Companie_Client()
+                        {
+                            ID_client = receptor,
+                            ID_companie = emitator,
+                            Mesaj = message
 
-                };
+                        };
+                    using (var context = new LinkedinEntities3())
+                    {
+                        context.Mesaj_Companie_Client.Add(newmessage);
+                        context.SaveChanges();
+                    }
+                }
+                else if (ok==0)
+                {
+                    var newmessage = new Mesaj_Client_Client()
+                    {
+                        ID_Client_Receive=receptor,
+                        ID_Client_Send=emitator,
+                        Mesaj = message
+
+                    };
+                    using (var context = new LinkedinEntities3())
+                    {
+                        context.Mesaj_Client_Client.Add(newmessage);
+                        context.SaveChanges();
+                    }
+                }
+                else if(ok==2)
+                {
+                    var newmessage = new Mesaj_Client_Companie()
+                    {
+                       ID_Client_send=emitator,
+                       ID_Companie_receive=receptor,
+                        Mesaj = message
+
+                    };
+                    using (var context = new LinkedinEntities3())
+                    {
+                        context.Mesaj_Client_Companie.Add(newmessage);
+                        context.SaveChanges();
+                    }
+                }
               
                 
 
-                using (var context = new LinkedinEntities3())
-                {
-                    context.Mesaj_Companie_Client.Add(newmessage);
-                    context.SaveChanges();
-                }
+               
                 
 
                 MessageBox.Show("Message was sent",

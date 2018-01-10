@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LinkedinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LinkedinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aptitudini">
           <Key>
             <PropertyRef Name="ID_Aptitudini" />
@@ -61,6 +61,24 @@
           <Property Name="UsernameC" Type="nvarchar" MaxLength="50" />
           <Property Name="ParolaC" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Mesaj_Client_Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Client_Receive" Type="int" Nullable="false" />
+          <Property Name="ID_Client_Send" Type="int" Nullable="false" />
+          <Property Name="Mesaj" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mesaj_Client_Companie">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Client_send" Type="int" Nullable="false" />
+          <Property Name="ID_Companie_receive" Type="int" Nullable="false" />
+          <Property Name="Mesaj" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Mesaj_Companie_Client">
           <Key>
             <PropertyRef Name="ID" />
@@ -68,7 +86,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_companie" Type="int" Nullable="false" />
           <Property Name="ID_client" Type="int" Nullable="false" />
-          <Property Name="Mesaj" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Mesaj" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
@@ -119,17 +137,6 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'Linkedin.dbo.NUME' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="NUME">
-          <Property Name="Nume" Type="nvarchar" MaxLength="101" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="NUME_CLIENT">
-          <Property Name="Nume" Type="nvarchar" MaxLength="50" />
-          <Property Name="Prenume" Type="nvarchar" MaxLength="50" />
-        </EntityType>-->
         <Association Name="FK_Aptitudini_Client">
           <End Role="Aptitudini" Type="Self.Aptitudini" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -183,6 +190,54 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
             </Principal>
             <Dependent Role="Aptitudini_companie">
               <PropertyRef Name="ID_Companie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesaj_Client_Client_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Mesaj_Client_Client" Type="Self.Mesaj_Client_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Mesaj_Client_Client">
+              <PropertyRef Name="ID_Client_Send" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesaj_Client_Client_Client1">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Mesaj_Client_Client" Type="Self.Mesaj_Client_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Mesaj_Client_Client">
+              <PropertyRef Name="ID_Client_Receive" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesaj_Client_Companie_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Mesaj_Client_Companie" Type="Self.Mesaj_Client_Companie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Mesaj_Client_Companie">
+              <PropertyRef Name="ID_Client_send" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesaj_Client_Companie_Companie">
+          <End Role="Companie" Type="Self.Companie" Multiplicity="1" />
+          <End Role="Mesaj_Client_Companie" Type="Self.Mesaj_Client_Companie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companie">
+              <PropertyRef Name="ID_Companie" />
+            </Principal>
+            <Dependent Role="Mesaj_Client_Companie">
+              <PropertyRef Name="ID_Companie_receive" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -317,6 +372,8 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           <EntitySet Name="Aptitudini_companie" EntityType="Self.Aptitudini_companie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Companie" EntityType="Self.Companie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mesaj_Client_Client" EntityType="Self.Mesaj_Client_Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mesaj_Client_Companie" EntityType="Self.Mesaj_Client_Companie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mesaj_Companie_Client" EntityType="Self.Mesaj_Companie_Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Relatie" EntityType="Self.Relatie" Schema="dbo" store:Type="Tables" />
@@ -339,6 +396,22 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           <AssociationSet Name="FK_Companie_Aptitudini_companie" Association="Self.FK_Companie_Aptitudini_companie">
             <End Role="Companie" EntitySet="Companie" />
             <End Role="Aptitudini_companie" EntitySet="Aptitudini_companie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesaj_Client_Client_Client" Association="Self.FK_Mesaj_Client_Client_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Mesaj_Client_Client" EntitySet="Mesaj_Client_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesaj_Client_Client_Client1" Association="Self.FK_Mesaj_Client_Client_Client1">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Mesaj_Client_Client" EntitySet="Mesaj_Client_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesaj_Client_Companie_Client" Association="Self.FK_Mesaj_Client_Companie_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Mesaj_Client_Companie" EntitySet="Mesaj_Client_Companie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesaj_Client_Companie_Companie" Association="Self.FK_Mesaj_Client_Companie_Companie">
+            <End Role="Companie" EntitySet="Companie" />
+            <End Role="Mesaj_Client_Companie" EntitySet="Mesaj_Client_Companie" />
           </AssociationSet>
           <AssociationSet Name="FK_Mesaj_Companie_Client_Client" Association="Self.FK_Mesaj_Companie_Client_Client">
             <End Role="Client" EntitySet="Client" />
@@ -369,8 +442,7 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
             <End Role="Relatie" EntitySet="Relatie" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LinkedinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -402,12 +474,15 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           <Property Name="Limbi_straine" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Parola" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Mesaj_Companie_Client" Relationship="Self.FK_Mesaj_Companie_Client_Client" FromRole="Client" ToRole="Mesaj_Companie_Client" />
           <NavigationProperty Name="Rating" Relationship="Self.FK_Rating_Receive" FromRole="Client" ToRole="Rating" />
           <NavigationProperty Name="Rating1" Relationship="Self.FK_Rating_Send" FromRole="Client" ToRole="Rating" />
           <NavigationProperty Name="Relatie" Relationship="Self.FK_Relatie_Client_Send" FromRole="Client" ToRole="Relatie" />
           <NavigationProperty Name="Relatie1" Relationship="Self.FK_Relatie_Receive" FromRole="Client" ToRole="Relatie" />
           <NavigationProperty Name="Aptitudini" Relationship="Self.Aptitudini_Client" FromRole="Client" ToRole="Aptitudini" />
+          <NavigationProperty Name="Mesaj_Client_Client" Relationship="LinkedinModel.FK_Mesaj_Client_Client_Client" FromRole="Client" ToRole="Mesaj_Client_Client" />
+          <NavigationProperty Name="Mesaj_Client_Client1" Relationship="LinkedinModel.FK_Mesaj_Client_Client_Client1" FromRole="Client" ToRole="Mesaj_Client_Client" />
+          <NavigationProperty Name="Mesaj_Client_Companie" Relationship="LinkedinModel.FK_Mesaj_Client_Companie_Client" FromRole="Client" ToRole="Mesaj_Client_Companie" />
+          <NavigationProperty Name="Mesaj_Companie_Client" Relationship="LinkedinModel.FK_Mesaj_Companie_Client_Client" FromRole="Client" ToRole="Mesaj_Companie_Client" />
         </EntityType>
         <EntityType Name="Companie">
           <Key>
@@ -421,19 +496,9 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           <Property Name="Telefon_companie" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="UsernameC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ParolaC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Mesaj_Companie_Client" Relationship="Self.FK_Mesaj_Companie_Client_Companie" FromRole="Companie" ToRole="Mesaj_Companie_Client" />
           <NavigationProperty Name="Aptitudini" Relationship="Self.Aptitudini_companie" FromRole="Companie" ToRole="Aptitudini" />
-        </EntityType>
-        <EntityType Name="Mesaj_Companie_Client">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_companie" Type="Int32" Nullable="false" />
-          <Property Name="ID_client" Type="Int32" Nullable="false" />
-          <Property Name="Mesaj" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Mesaj_Companie_Client_Client" FromRole="Mesaj_Companie_Client" ToRole="Client" />
-          <NavigationProperty Name="Companie" Relationship="Self.FK_Mesaj_Companie_Client_Companie" FromRole="Mesaj_Companie_Client" ToRole="Companie" />
+          <NavigationProperty Name="Mesaj_Client_Companie" Relationship="LinkedinModel.FK_Mesaj_Client_Companie_Companie" FromRole="Companie" ToRole="Mesaj_Client_Companie" />
+          <NavigationProperty Name="Mesaj_Companie_Client" Relationship="LinkedinModel.FK_Mesaj_Companie_Client_Companie" FromRole="Companie" ToRole="Mesaj_Companie_Client" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
@@ -490,18 +555,6 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_Mesaj_Companie_Client_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Mesaj_Companie_Client" Type="Self.Mesaj_Companie_Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ID_Client" />
-            </Principal>
-            <Dependent Role="Mesaj_Companie_Client">
-              <PropertyRef Name="ID_client" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Rating_Receive">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
@@ -550,18 +603,6 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Mesaj_Companie_Client_Companie">
-          <End Role="Companie" Type="Self.Companie" Multiplicity="1" />
-          <End Role="Mesaj_Companie_Client" Type="Self.Mesaj_Companie_Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Companie">
-              <PropertyRef Name="ID_Companie" />
-            </Principal>
-            <Dependent Role="Mesaj_Companie_Client">
-              <PropertyRef Name="ID_companie" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Relatie_Status">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Relatie" Type="Self.Relatie" Multiplicity="*" />
@@ -586,17 +627,12 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           <EntitySet Name="Aptitudini" EntityType="Self.Aptitudini" />
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="Companie" EntityType="Self.Companie" />
-          <EntitySet Name="Mesaj_Companie_Client" EntityType="Self.Mesaj_Companie_Client" />
           <EntitySet Name="Rating" EntityType="Self.Rating" />
           <EntitySet Name="Relatie" EntityType="Self.Relatie" />
           <EntitySet Name="Sex" EntityType="Self.Sex" />
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="Statut_social" EntityType="Self.Statut_social" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="FK_Mesaj_Companie_Client_Client" Association="Self.FK_Mesaj_Companie_Client_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Mesaj_Companie_Client" EntitySet="Mesaj_Companie_Client" />
-          </AssociationSet>
           <AssociationSet Name="FK_Rating_Receive" Association="Self.FK_Rating_Receive">
             <End Role="Client" EntitySet="Client" />
             <End Role="Rating" EntitySet="Rating" />
@@ -612,10 +648,6 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           <AssociationSet Name="FK_Relatie_Receive" Association="Self.FK_Relatie_Receive">
             <End Role="Client" EntitySet="Client" />
             <End Role="Relatie" EntitySet="Relatie" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Mesaj_Companie_Client_Companie" Association="Self.FK_Mesaj_Companie_Client_Companie">
-            <End Role="Companie" EntitySet="Companie" />
-            <End Role="Mesaj_Companie_Client" EntitySet="Mesaj_Companie_Client" />
           </AssociationSet>
           <AssociationSet Name="FK_Relatie_Status" Association="Self.FK_Relatie_Status">
             <End Role="Status" EntitySet="Status" />
@@ -634,10 +666,10 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
             <Parameter Name="prenume" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CautaCompanie" ReturnType="Collection(LinkedinModel.CautaCompanie_Result)">
-            <Parameter Name="nume" Mode="In" Type="String" />
+          <Parameter Name="nume" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Procedura" ReturnType="Collection(LinkedinModel.Procedura_Result)">
-            <Parameter Name="nume" Mode="In" Type="String" />
+          <Parameter Name="nume" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -669,6 +701,33 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Mesaj_Client_Client" EntityType="LinkedinModel.Mesaj_Client_Client" />
+          <EntitySet Name="Mesaj_Client_Companie" EntityType="LinkedinModel.Mesaj_Client_Companie" />
+          <EntitySet Name="Mesaj_Companie_Client" EntityType="LinkedinModel.Mesaj_Companie_Client" />
+          <AssociationSet Name="FK_Mesaj_Client_Client_Client" Association="LinkedinModel.FK_Mesaj_Client_Client_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Mesaj_Client_Client" EntitySet="Mesaj_Client_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesaj_Client_Client_Client1" Association="LinkedinModel.FK_Mesaj_Client_Client_Client1">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Mesaj_Client_Client" EntitySet="Mesaj_Client_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesaj_Client_Companie_Client" Association="LinkedinModel.FK_Mesaj_Client_Companie_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Mesaj_Client_Companie" EntitySet="Mesaj_Client_Companie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesaj_Companie_Client_Client" Association="LinkedinModel.FK_Mesaj_Companie_Client_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Mesaj_Companie_Client" EntitySet="Mesaj_Companie_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesaj_Client_Companie_Companie" Association="LinkedinModel.FK_Mesaj_Client_Companie_Companie">
+            <End Role="Companie" EntitySet="Companie" />
+            <End Role="Mesaj_Client_Companie" EntitySet="Mesaj_Client_Companie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesaj_Companie_Client_Companie" Association="LinkedinModel.FK_Mesaj_Companie_Client_Companie">
+            <End Role="Companie" EntitySet="Companie" />
+            <End Role="Mesaj_Companie_Client" EntitySet="Mesaj_Companie_Client" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="CautaClient_Result">
           <Property Type="Int32" Name="ID_Client" Nullable="false" />
@@ -712,6 +771,111 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Mesaj_Client_Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Client_Receive" Type="Int32" Nullable="false" />
+          <Property Name="ID_Client_Send" Type="Int32" Nullable="false" />
+          <Property Name="Mesaj" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="LinkedinModel.FK_Mesaj_Client_Client_Client" FromRole="Mesaj_Client_Client" ToRole="Client" />
+          <NavigationProperty Name="Client1" Relationship="LinkedinModel.FK_Mesaj_Client_Client_Client1" FromRole="Mesaj_Client_Client" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Mesaj_Client_Companie">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Client_send" Type="Int32" Nullable="false" />
+          <Property Name="ID_Companie_receive" Type="Int32" Nullable="false" />
+          <Property Name="Mesaj" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="LinkedinModel.FK_Mesaj_Client_Companie_Client" FromRole="Mesaj_Client_Companie" ToRole="Client" />
+          <NavigationProperty Name="Companie" Relationship="LinkedinModel.FK_Mesaj_Client_Companie_Companie" FromRole="Mesaj_Client_Companie" ToRole="Companie" />
+        </EntityType>
+        <EntityType Name="Mesaj_Companie_Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_companie" Type="Int32" Nullable="false" />
+          <Property Name="ID_client" Type="Int32" Nullable="false" />
+          <Property Name="Mesaj" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="LinkedinModel.FK_Mesaj_Companie_Client_Client" FromRole="Mesaj_Companie_Client" ToRole="Client" />
+          <NavigationProperty Name="Companie" Relationship="LinkedinModel.FK_Mesaj_Companie_Client_Companie" FromRole="Mesaj_Companie_Client" ToRole="Companie" />
+        </EntityType>
+        <Association Name="FK_Mesaj_Client_Client_Client">
+          <End Type="LinkedinModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="LinkedinModel.Mesaj_Client_Client" Role="Mesaj_Client_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Mesaj_Client_Client">
+              <PropertyRef Name="ID_Client_Send" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesaj_Client_Client_Client1">
+          <End Type="LinkedinModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="LinkedinModel.Mesaj_Client_Client" Role="Mesaj_Client_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Mesaj_Client_Client">
+              <PropertyRef Name="ID_Client_Receive" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesaj_Client_Companie_Client">
+          <End Type="LinkedinModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="LinkedinModel.Mesaj_Client_Companie" Role="Mesaj_Client_Companie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Mesaj_Client_Companie">
+              <PropertyRef Name="ID_Client_send" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesaj_Companie_Client_Client">
+          <End Type="LinkedinModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="LinkedinModel.Mesaj_Companie_Client" Role="Mesaj_Companie_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Mesaj_Companie_Client">
+              <PropertyRef Name="ID_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesaj_Client_Companie_Companie">
+          <End Type="LinkedinModel.Companie" Role="Companie" Multiplicity="1" />
+          <End Type="LinkedinModel.Mesaj_Client_Companie" Role="Mesaj_Client_Companie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companie">
+              <PropertyRef Name="ID_Companie" />
+            </Principal>
+            <Dependent Role="Mesaj_Client_Companie">
+              <PropertyRef Name="ID_Companie_receive" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesaj_Companie_Client_Companie">
+          <End Type="LinkedinModel.Companie" Role="Companie" Multiplicity="1" />
+          <End Type="LinkedinModel.Mesaj_Companie_Client" Role="Mesaj_Companie_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companie">
+              <PropertyRef Name="ID_Companie" />
+            </Principal>
+            <Dependent Role="Mesaj_Companie_Client">
+              <PropertyRef Name="ID_companie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -758,16 +922,6 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
                 <ScalarProperty Name="Telefon_companie" ColumnName="Telefon_companie" />
                 <ScalarProperty Name="UsernameC" ColumnName="UsernameC" />
                 <ScalarProperty Name="ParolaC" ColumnName="ParolaC" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Mesaj_Companie_Client">
-            <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Companie_Client">
-              <MappingFragment StoreEntitySet="Mesaj_Companie_Client">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ID_companie" ColumnName="ID_companie" />
-                <ScalarProperty Name="ID_client" ColumnName="ID_client" />
-                <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -909,6 +1063,36 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="LinkedinModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="LinkedinModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Mesaj_Client_Client">
+            <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Client_Client">
+              <MappingFragment StoreEntitySet="Mesaj_Client_Client">
+                <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+                <ScalarProperty Name="ID_Client_Send" ColumnName="ID_Client_Send" />
+                <ScalarProperty Name="ID_Client_Receive" ColumnName="ID_Client_Receive" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mesaj_Client_Companie">
+            <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Client_Companie">
+              <MappingFragment StoreEntitySet="Mesaj_Client_Companie">
+                <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+                <ScalarProperty Name="ID_Companie_receive" ColumnName="ID_Companie_receive" />
+                <ScalarProperty Name="ID_Client_send" ColumnName="ID_Client_send" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mesaj_Companie_Client">
+            <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Companie_Client">
+              <MappingFragment StoreEntitySet="Mesaj_Companie_Client">
+                <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+                <ScalarProperty Name="ID_client" ColumnName="ID_client" />
+                <ScalarProperty Name="ID_companie" ColumnName="ID_companie" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

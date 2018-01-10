@@ -30,13 +30,15 @@ namespace proiect
         public virtual DbSet<Aptitudini> Aptitudini { get; set; }
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Companie> Companie { get; set; }
-        public virtual DbSet<Mesaj_Companie_Client> Mesaj_Companie_Client { get; set; }
         public virtual DbSet<Rating> Rating { get; set; }
         public virtual DbSet<Relatie> Relatie { get; set; }
         public virtual DbSet<Sex> Sex { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Statut_social> Statut_social { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Mesaj_Client_Client> Mesaj_Client_Client { get; set; }
+        public virtual DbSet<Mesaj_Client_Companie> Mesaj_Client_Companie { get; set; }
+        public virtual DbSet<Mesaj_Companie_Client> Mesaj_Companie_Client { get; set; }
     
         public virtual ObjectResult<CautaClient_Result> CautaClient(string nume, string prenume)
         {

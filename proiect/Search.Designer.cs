@@ -41,6 +41,7 @@ namespace proiect
             this.Match = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rating = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.SendRating = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.SendMessageClient = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Message = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ID_Client = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,6 +72,7 @@ namespace proiect
             this.Match,
             this.Rating,
             this.SendRating,
+            this.SendMessageClient,
             this.Message,
             this.ID_Client,
             this.numeDataGridViewTextBoxColumn,
@@ -131,6 +133,11 @@ namespace proiect
             this.SendRating.Name = "SendRating";
             this.SendRating.ReadOnly = true;
             // 
+            // SendMessageClient
+            // 
+            this.SendMessageClient.HeaderText = "SendMessageClient";
+            this.SendMessageClient.Name = "SendMessageClient";
+            // 
             // Message
             // 
             this.Message.HeaderText = "Message";
@@ -143,6 +150,7 @@ namespace proiect
             this.ID_Client.HeaderText = "ID_Client";
             this.ID_Client.Name = "ID_Client";
             this.ID_Client.ReadOnly = true;
+            this.ID_Client.Visible = false;
             // 
             // numeDataGridViewTextBoxColumn
             // 
@@ -316,6 +324,7 @@ namespace proiect
             this.ID_Client.HeaderText = "ID_Client";
             this.ID_Client.Name = "ID_Client";
             this.ID_Client.ReadOnly = true;
+            this.ID_Client.Visible = false;
             // 
             // numeDataGridViewTextBoxColumn
             // 
@@ -397,6 +406,7 @@ namespace proiect
         private System.Windows.Forms.DataGridViewTextBoxColumn Match;
         private System.Windows.Forms.DataGridViewComboBoxColumn Rating;
         private System.Windows.Forms.DataGridViewButtonColumn SendRating;
+        private System.Windows.Forms.DataGridViewButtonColumn SendMessageClient;
         private System.Windows.Forms.DataGridViewButtonColumn Message;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID_Client;
         private System.Windows.Forms.DataGridViewTextBoxColumn numeDataGridViewTextBoxColumn;

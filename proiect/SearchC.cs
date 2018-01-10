@@ -15,21 +15,36 @@ namespace proiect
     {
         public static string search;
         public static int id_cine_e_conectat;
-        public SearchC(string s, int id_conectat)
+        public SearchC(string s, string a, int id_conectat)
         {
-            InitializeComponent();
-            search = s;
             id_cine_e_conectat = id_conectat;
+            if (a.Equals("Companie"))
+            {
+                InitializeComponent1();
+            }
+            else
+                InitializeComponent();
+            search = s;
+          
             LinkedinEntities3 context = new LinkedinEntities3();
 
             dataGridView1.DataSource = context.Companie.Where(x =>x.ID_Companie!=id_conectat && x.Nume_companie.Contains(search)).ToList();
+
+           
+
+
+          
+                
+        
+        
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //aici trbuie sa luati usernamul din datagridview si sa-l dati parametru la form
-            //Form form = new SentMessage(search);
-            //form.Show();
+            string abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Companie.Index].Value.ToString();
+
+            Form form = new SentMessage(abc, id_cine_e_conectat, "Client-Companie");
+            form.Show();
         }
     }
 }
