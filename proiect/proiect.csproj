@@ -187,12 +187,6 @@
     <Compile Include="Skills.Designer.cs">
       <DependentUpon>Skills.cs</DependentUpon>
     </Compile>
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Status.cs">
       <DependentUpon>LinkedinDataModel.tt</DependentUpon>
     </Compile>
@@ -244,18 +238,8 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>LinkedinDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="LinkedinDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LinkedinDataModel.edmx</DependentUpon>
-      <LastGenOutput>LinkedinDataModel.Context.cs</LastGenOutput>
-    </None>
     <None Include="LinkedinDataModel.edmx.diagram">
       <DependentUpon>LinkedinDataModel.edmx</DependentUpon>
-    </None>
-    <None Include="LinkedinDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LinkedinDataModel.edmx</DependentUpon>
-      <LastGenOutput>LinkedinDataModel.cs</LastGenOutput>
     </None>
     <None Include="LinkedinDataSet.xsc">
       <DependentUpon>LinkedinDataSet.xsd</DependentUpon>
@@ -293,6 +277,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LinkedinDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LinkedinDataModel.edmx</DependentUpon>
+      <LastGenOutput>LinkedinDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="LinkedinDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LinkedinDataModel.edmx</DependentUpon>
+      <LastGenOutput>LinkedinDataModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace proiect
 {
@@ -29,10 +30,48 @@ namespace proiect
         static int sex_id;
         static int status_id;
 
+        public static bool Conditions(string password)
+        {
+            int ok = 0;
+            if (password.Length >= 6 && Regex.Match(password, @"[a-z]", RegexOptions.ECMAScript).Success &&
+                Regex.Match(password, @"[A-Z]", RegexOptions.ECMAScript).Success &&
+                Regex.Match(password, @"[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]", RegexOptions.ECMAScript).Success &&
+                Regex.Match(password, @"\d+", RegexOptions.ECMAScript).Success)
+                ok = 1;
+
+            if (ok == 1)
+                return true;
+            return false;
+        }
+        public static bool IsPhoneNumber(string number)
+        {
+            if (Regex.Match(number, @"^(\+407[0-9]{8})$").Success ||
+                Regex.Match(number, @"^(\+[1-9][0-9]{9})$").Success ||
+                Regex.Match(number, @"^(07[0-9]{8})$").Success ||
+                Regex.Match(number, @"^(0[1-9][0-9]{8})$").Success ||
+                Regex.Match(number, @"^(\+[1-9][0-9]{10})$").Success)
+                return true;
+            return false;
+        }
+
+        public static bool ValidEmailAddress(string emailAddress)
+        {
+            if (emailAddress.Length == 0)
+                return false;
+            
+            if (emailAddress.IndexOf("@") > -1)
+            {
+                if (emailAddress.IndexOf(".", emailAddress.IndexOf("@")) > emailAddress.IndexOf("@"))
+                    return true;
+            }
+
+            return false;
+        }
+
         public static bool IfExistsUsername(string username)
         {
             int ok = 0;
-            var context = new LinkedinEntities3();
+            var context = new LinkedinEntities5();
             var results = from c in context.Client
                           select new
                           {
@@ -42,6 +81,18 @@ namespace proiect
             foreach (var item in results)
             {
                 if (item.Username.Equals(username))
+                    ok = 1;
+            }
+
+            var results_companie = from c in context.Companie
+                          select new
+                          {
+                              c.Nume_companie
+                          };
+
+            foreach (var item in results_companie)
+            {
+                if (item.Nume_companie.Equals(username))
                     ok = 1;
             }
 
@@ -55,7 +106,7 @@ namespace proiect
         public static bool IfExistsEmail(string mail)
         {
             int ok = 0;
-            var context = new LinkedinEntities3();
+            var context = new LinkedinEntities5();
             var results = from c in context.Client
                           select new
                           {
@@ -65,6 +116,18 @@ namespace proiect
             foreach (var item in results)
             {
                 if (item.Email.Equals(mail))
+                    ok = 1;
+            }
+
+            var resultsC = from c in context.Companie
+                          select new
+                          {
+                              c.Email_companie
+                          };
+
+            foreach (var item in resultsC)
+            {
+                if (item.Email_companie.Equals(mail))
                     ok = 1;
             }
 
@@ -107,9 +170,8 @@ namespace proiect
         private void txtPass_TextChanged(object sender, EventArgs e)
         {
             pass = txtPass.Text.ToString();
-            //aici putem sa facem verificari d-alea cu cel putin litera mare, un numa un caracter...
-
         }
+      
 
         private void txtCheckPass_TextChanged(object sender, EventArgs e)
         {
@@ -137,6 +199,14 @@ namespace proiect
                MessageBoxIcon.Error);
             }
 
+            else if (pass != null && Conditions(pass) == false)
+            {
+                MessageBox.Show("Aruncati voi o exceptie ca nu contine anumite caractere",
+                        "Warning",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+            }
+
             else if (pass != null && checkpass != null && pass.Equals(checkpass) == false)
             {
                 MessageBox.Show("Password dosen't match",
@@ -145,9 +215,25 @@ namespace proiect
                        MessageBoxIcon.Warning);
             }
 
-            else if (email != null && IfExistsEmail(email) == true)
+            else if (email != null && ValidEmailAddress(email) == false)
+            {
+                MessageBox.Show("E-mail address must be valid e-mail address format!",
+                "ERROR",
+               MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
+
+            else if (IfExistsEmail(email) == true)
             {
                 MessageBox.Show("Email already exist!",
+                "ERROR",
+               MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
+
+            else if (IsPhoneNumber(phone) == false)
+            {
+                MessageBox.Show("Number incorect!",
                 "ERROR",
                MessageBoxButtons.OK,
                MessageBoxIcon.Error);
@@ -167,7 +253,7 @@ namespace proiect
                 MessageBoxIcon.Information);
                 this.Close();
                 CClient.inregistreaza_client(firstname, lastname, username, pass, phone, email, date, universiy, adress, sex_id, status_id, nationality, result);
-                Form form = new CClient(firstname, lastname, username, phone, email, date, universiy, adress, sex, status, nationality, Skills.get_skill());
+                Form form = new CClient(firstname, lastname, username, phone, email, date, universiy, adress, sex, status, nationality, Skills.get_skill(), pbProfile.Image);
                 form.Show();
             }
             else

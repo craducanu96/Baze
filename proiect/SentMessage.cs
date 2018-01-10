@@ -61,7 +61,7 @@ namespace proiect
                             Mesaj = message
 
                         };
-                    using (var context = new LinkedinEntities3())
+                    using (var context = new LinkedinEntities5())
                     {
                         context.Mesaj_Companie_Client.Add(newmessage);
                         context.SaveChanges();
@@ -76,7 +76,7 @@ namespace proiect
                         Mesaj = message
 
                     };
-                    using (var context = new LinkedinEntities3())
+                    using (var context = new LinkedinEntities5())
                     {
                         context.Mesaj_Client_Client.Add(newmessage);
                         context.SaveChanges();
@@ -91,7 +91,7 @@ namespace proiect
                         Mesaj = message
 
                     };
-                    using (var context = new LinkedinEntities3())
+                    using (var context = new LinkedinEntities5())
                     {
                         context.Mesaj_Client_Companie.Add(newmessage);
                         context.SaveChanges();

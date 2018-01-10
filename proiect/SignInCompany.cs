@@ -27,29 +27,6 @@ namespace proiect
             return skillsC;
         }
 
-        public static bool IfExistsCompany(string company)
-        {
-            int ok = 0;
-            var context = new LinkedinEntities3();
-            var results = from c in context.Companie
-                          select new
-                          {
-                              c.Nume_companie
-                          };
-
-            foreach (var item in results)
-            {
-                if (item.Nume_companie.Equals(company))
-                    ok = 1;
-            }
-
-            if (ok == 1)
-                return true;
-
-            return false;
-
-        }
-
         public SignInCompany()
         {
             skillsC = null;
@@ -98,12 +75,19 @@ namespace proiect
         private void btNextCompany_Click(object sender, EventArgs e)
         {
 
-            if (companyname != null && IfExistsCompany(companyname) == true)
+            if (companyname != null && SignIn.IfExistsUsername(companyname) == true)
             {
                 MessageBox.Show("Company already exist!",
                 "ERROR",
                MessageBoxButtons.OK,
                MessageBoxIcon.Error);
+            }
+            else if (passC != null && SignIn.Conditions(passC) == false)
+            {
+                MessageBox.Show("Aruncati voi o exceptie ca nu contine anumite caractere",
+                        "Warning",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
             }
             else if (passC != null && checkpassC != null && passC.Equals(checkpassC) == false)
             {
@@ -111,6 +95,21 @@ namespace proiect
                        "Warning",
                        MessageBoxButtons.OK,
                        MessageBoxIcon.Warning);
+            }
+            else if (emailC != null && SignIn.ValidEmailAddress(emailC) == false)
+            {
+                MessageBox.Show("E-mail address must be valid e-mail address format!",
+                "ERROR",
+               MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
+
+            else if (SignIn.IfExistsEmail(emailC) == true)
+            {
+                MessageBox.Show("Email already exist!",
+                "ERROR",
+               MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
             }
             else if (companyname != null && CEO != null
                         && addressC != null && phoneC != null

@@ -26,28 +26,6 @@ namespace proiect
         public static DataGrid grid;
 
 
-        //private string PasswordSalt
-        //{
-        //    get
-        //    {
-        //        var rng = new RNGCryptoServiceProvider();
-        //        var buff = new byte[32];
-        //        rng.GetBytes(buff);
-        //        return Convert.ToBase64String(buff);
-        //    }
-        //}
-
-        //private string EncodePassword(string password, string salt)
-        //{
-        //    byte[] bytes = Encoding.Unicode.GetBytes(password);
-        //    byte[] src = Encoding.Unicode.GetBytes(salt);
-        //    byte[] dst = new byte[src.Length + bytes.Length];
-        //    Buffer.BlockCopy(src, 0, dst, 0, src.Length);
-        //    Buffer.BlockCopy(bytes, 0, dst, src.Length, bytes.Length);
-        //    HashAlgorithm algorithm = HashAlgorithm.Create("SHA1");
-        //    byte[] inarray = algorithm.ComputeHash(dst);
-        //    return Convert.ToBase64String(inarray);
-        //}
 
         public sealed class SecurePasswordHasher
         {
@@ -149,7 +127,7 @@ namespace proiect
                 newClient.Aptitudini.Add(apt);
             }
 
-            using (var context = new LinkedinEntities3())
+            using (var context = new LinkedinEntities5())
             {
                 context.Client.Add(newClient);
                 context.SaveChanges();
@@ -157,12 +135,12 @@ namespace proiect
 
         }
         int id_client_logat;
-        public CClient(string firstname, string lastname, string username, string phone, string email, string date, string university, string address, string sex, string status, string nationality, string skills)
+        public CClient(string firstname, string lastname, string username, string phone, string email, string date, string university, string address, string sex, string status, string nationality, string skills, Image ofd)
         {
             InitializeComponent();
             picMessaging.Image = Image.FromFile("message.png");
             picRequest.Image = Image.FromFile("notification.png");
-            picMe.Image = Image.FromFile("profile.png");
+            picMe.Image = ofd;
 
             panelDetails.Visible = false;
             panelNotification.Visible = false;
@@ -184,14 +162,14 @@ namespace proiect
             {
                 listSkils.Items.Add(s);
             }
-            using (var context = new LinkedinEntities3())
+            using (var context = new LinkedinEntities5())
             {
                 id_client_logat = (from c in context.Client
                                    where c.Username.Equals(username)
                                    select c.ID_Client).First();
 
             }
-            using (var context = new LinkedinEntities3())
+            using (var context = new LinkedinEntities5())
             {
                 int count = (from o in context.Rating
                              where o.ID_client_receive == id_client_logat
@@ -261,7 +239,7 @@ namespace proiect
             if (search != null)
             {
 
-                using (var context = new LinkedinEntities3())
+                using (var context = new LinkedinEntities5())
                 {
                     var results = from c in context.Client
                                   where c.Nume.Contains(search) || c.Prenume.Contains(search)

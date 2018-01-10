@@ -14,17 +14,18 @@ namespace proiect
     
     public partial class Client
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
+            this.Mesaj_Client_Client = new HashSet<Mesaj_Client_Client>();
+            this.Mesaj_Client_Client1 = new HashSet<Mesaj_Client_Client>();
+            this.Mesaj_Client_Companie = new HashSet<Mesaj_Client_Companie>();
+            this.Mesaj_Companie_Client = new HashSet<Mesaj_Companie_Client>();
             this.Rating = new HashSet<Rating>();
             this.Rating1 = new HashSet<Rating>();
             this.Relatie = new HashSet<Relatie>();
             this.Relatie1 = new HashSet<Relatie>();
             this.Aptitudini = new HashSet<Aptitudini>();
-            this.Mesaj_Client_Client = new HashSet<Mesaj_Client_Client>();
-            this.Mesaj_Client_Client1 = new HashSet<Mesaj_Client_Client>();
-            this.Mesaj_Client_Companie = new HashSet<Mesaj_Client_Companie>();
-            this.Mesaj_Companie_Client = new HashSet<Mesaj_Companie_Client>();
         }
     
         public int ID_Client { get; set; }
@@ -43,14 +44,23 @@ namespace proiect
         public string Username { get; set; }
         public string Parola { get; set; }
     
-        public virtual ICollection<Rating> Rating { get; set; }
-        public virtual ICollection<Rating> Rating1 { get; set; }
-        public virtual ICollection<Relatie> Relatie { get; set; }
-        public virtual ICollection<Relatie> Relatie1 { get; set; }
-        public virtual ICollection<Aptitudini> Aptitudini { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mesaj_Client_Client> Mesaj_Client_Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mesaj_Client_Client> Mesaj_Client_Client1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mesaj_Client_Companie> Mesaj_Client_Companie { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mesaj_Companie_Client> Mesaj_Companie_Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Rating { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Rating1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Relatie> Relatie { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Relatie> Relatie1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Aptitudini> Aptitudini { get; set; }
     }
 }

@@ -15,10 +15,10 @@ namespace proiect
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class LinkedinEntities3 : DbContext
+    public partial class LinkedinEntities5 : DbContext
     {
-        public LinkedinEntities3()
-            : base("name=LinkedinEntities3")
+        public LinkedinEntities5()
+            : base("name=LinkedinEntities5")
         {
         }
     
@@ -30,15 +30,15 @@ namespace proiect
         public virtual DbSet<Aptitudini> Aptitudini { get; set; }
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Companie> Companie { get; set; }
+        public virtual DbSet<Mesaj_Client_Client> Mesaj_Client_Client { get; set; }
+        public virtual DbSet<Mesaj_Client_Companie> Mesaj_Client_Companie { get; set; }
+        public virtual DbSet<Mesaj_Companie_Client> Mesaj_Companie_Client { get; set; }
         public virtual DbSet<Rating> Rating { get; set; }
         public virtual DbSet<Relatie> Relatie { get; set; }
         public virtual DbSet<Sex> Sex { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Statut_social> Statut_social { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<Mesaj_Client_Client> Mesaj_Client_Client { get; set; }
-        public virtual DbSet<Mesaj_Client_Companie> Mesaj_Client_Companie { get; set; }
-        public virtual DbSet<Mesaj_Companie_Client> Mesaj_Companie_Client { get; set; }
     
         public virtual ObjectResult<CautaClient_Result> CautaClient(string nume, string prenume)
         {
@@ -126,7 +126,7 @@ namespace proiect
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
         }
     
-        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        public virtual int sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
         {
             var diagramnameParameter = diagramname != null ?
                 new ObjectParameter("diagramname", diagramname) :
@@ -136,10 +136,10 @@ namespace proiect
                 new ObjectParameter("owner_id", owner_id) :
                 new ObjectParameter("owner_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
         }
     
-        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        public virtual int sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
         {
             var diagramnameParameter = diagramname != null ?
                 new ObjectParameter("diagramname", diagramname) :
@@ -149,7 +149,7 @@ namespace proiect
                 new ObjectParameter("owner_id", owner_id) :
                 new ObjectParameter("owner_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
         }
     
         public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)

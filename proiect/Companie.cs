@@ -14,11 +14,12 @@ namespace proiect
     
     public partial class Companie
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Companie()
         {
-            this.Aptitudini = new HashSet<Aptitudini>();
             this.Mesaj_Client_Companie = new HashSet<Mesaj_Client_Companie>();
             this.Mesaj_Companie_Client = new HashSet<Mesaj_Companie_Client>();
+            this.Aptitudini = new HashSet<Aptitudini>();
         }
     
         public int ID_Companie { get; set; }
@@ -30,8 +31,11 @@ namespace proiect
         public string UsernameC { get; set; }
         public string ParolaC { get; set; }
     
-        public virtual ICollection<Aptitudini> Aptitudini { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mesaj_Client_Companie> Mesaj_Client_Companie { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mesaj_Companie_Client> Mesaj_Companie_Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Aptitudini> Aptitudini { get; set; }
     }
 }

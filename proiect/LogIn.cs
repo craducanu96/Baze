@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace proiect
 {
@@ -17,9 +18,20 @@ namespace proiect
         static string skill;
         static string skillC;
 
+        private Image ConvertByteToImage(byte[] photo)
+        {
+            Image newImage;
+            using (MemoryStream ms = new MemoryStream(photo, 0, photo.Length))
+            {
+                ms.Write(photo, 0, photo.Length);
+                newImage = Image.FromStream(ms, true);
+            }
+            return newImage;
+        }
+
         public static string skills(int id_client)
         {
-            using (var context = new LinkedinEntities3())
+            using (var context = new LinkedinEntities5())
             {
                 var results = context.Client.Include("Aptitudini").Where(s => s.ID_Client == id_client).FirstOrDefault<Client>();
 
@@ -34,7 +46,7 @@ namespace proiect
 
         public static string skillsC(int id_companie)
         {
-            using (var context = new LinkedinEntities3())
+            using (var context = new LinkedinEntities5())
             {
                 var results = context.Companie.Include("Aptitudini").Where(s => s.ID_Companie == id_companie).FirstOrDefault<Companie>();
 
@@ -50,7 +62,7 @@ namespace proiect
         public static bool IfCompany(string user, string pass)
         {
             int ok = 0;
-            var context = new LinkedinEntities3();
+            var context = new LinkedinEntities5();
             var results = from c in context.Companie
                           select new
                           {
@@ -76,7 +88,7 @@ namespace proiect
         public static bool IfClient(string user, string pass)
         {
             int ok = 0;
-            var context = new LinkedinEntities3();
+            var context = new LinkedinEntities5();
             var results = from c in context.Client
                           select new
                           {
@@ -152,7 +164,7 @@ namespace proiect
 
                 if (IfCompany(username, password) == true)
                 {
-                    var context = new LinkedinEntities3();
+                    var context = new LinkedinEntities5();
                     var results = from c in context.Companie
                                   where c.UsernameC.Equals(username)
                                   select new
@@ -174,14 +186,13 @@ namespace proiect
 
                         Form form = new CCompanie(director, username, adresa, email, telefon, skillsC(id_companie));
                         form.Show();
-                        this.Hide();
                     }
 
 
                 }
                 else if (IfClient(username, password) == true)
                 {
-                    var context = new LinkedinEntities3();
+                    var context = new LinkedinEntities5();
                     var results = from c in context.Client
                                   where c.Username.Equals(username)
                                   select new
@@ -231,10 +242,10 @@ namespace proiect
                             statut = "Divorced";
                         else if (item.ID_statut_social.Equals(6))
                             statut = "Marriage";
+                        Image result = ConvertByteToImage(item.Poza);
 
-                        Form form = new CClient(nume, prenume, username, telefon, email, data, facultate, adresa, sex, statut, nationalitate, skills(id_client));
+                        Form form = new CClient(nume, prenume, username, telefon, email, data, facultate, adresa, sex, statut, nationalitate, skills(id_client), result);
                         form.Show();
-                        this.Hide();
                     }
                 }
                 else

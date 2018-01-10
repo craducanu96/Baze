@@ -26,7 +26,7 @@ namespace proiect
                 InitializeComponent();
             search = s;
           
-            LinkedinEntities3 context = new LinkedinEntities3();
+            LinkedinEntities5 context = new LinkedinEntities5();
 
             dataGridView1.DataSource = context.Companie.Where(x =>x.ID_Companie!=id_conectat && x.Nume_companie.Contains(search)).ToList();
 

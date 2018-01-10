@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="LinkedinModelStoreContainer" CdmEntityContainer="LinkedinEntities3">
+  <EntityContainerMapping StorageEntityContainer="LinkedinModelStoreContainer" CdmEntityContainer="LinkedinEntities5">
     <EntitySetMapping Name="Aptitudini">
       <EntityTypeMapping TypeName="LinkedinModel.Aptitudini">
         <MappingFragment StoreEntitySet="Aptitudini">
@@ -41,6 +41,36 @@
           <ScalarProperty Name="Telefon_companie" ColumnName="Telefon_companie" />
           <ScalarProperty Name="UsernameC" ColumnName="UsernameC" />
           <ScalarProperty Name="ParolaC" ColumnName="ParolaC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mesaj_Client_Client">
+      <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Client_Client">
+        <MappingFragment StoreEntitySet="Mesaj_Client_Client">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_Client_Receive" ColumnName="ID_Client_Receive" />
+          <ScalarProperty Name="ID_Client_Send" ColumnName="ID_Client_Send" />
+          <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mesaj_Client_Companie">
+      <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Client_Companie">
+        <MappingFragment StoreEntitySet="Mesaj_Client_Companie">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_Client_send" ColumnName="ID_Client_send" />
+          <ScalarProperty Name="ID_Companie_receive" ColumnName="ID_Companie_receive" />
+          <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mesaj_Companie_Client">
+      <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Companie_Client">
+        <MappingFragment StoreEntitySet="Mesaj_Companie_Client">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_companie" ColumnName="ID_companie" />
+          <ScalarProperty Name="ID_client" ColumnName="ID_client" />
+          <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -161,56 +191,9 @@
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="LinkedinModel.Store.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="LinkedinModel.Store.sp_creatediagram" />
     <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="LinkedinModel.Store.sp_dropdiagram" />
-    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="LinkedinModel.Store.sp_helpdiagramdefinition">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="LinkedinModel.sp_helpdiagramdefinition_Result">
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="LinkedinModel.Store.sp_helpdiagrams">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="LinkedinModel.sp_helpdiagrams_Result">
-          <ScalarProperty Name="Database" ColumnName="Database" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Owner" ColumnName="Owner" />
-          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="LinkedinModel.Store.sp_helpdiagramdefinition" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="LinkedinModel.Store.sp_helpdiagrams" />
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="LinkedinModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="LinkedinModel.Store.sp_upgraddiagrams" />
-    <EntitySetMapping Name="Mesaj_Client_Client">
-      <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Client_Client">
-        <MappingFragment StoreEntitySet="Mesaj_Client_Client">
-          <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
-          <ScalarProperty Name="ID_Client_Send" ColumnName="ID_Client_Send" />
-          <ScalarProperty Name="ID_Client_Receive" ColumnName="ID_Client_Receive" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Mesaj_Client_Companie">
-      <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Client_Companie">
-        <MappingFragment StoreEntitySet="Mesaj_Client_Companie">
-          <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
-          <ScalarProperty Name="ID_Companie_receive" ColumnName="ID_Companie_receive" />
-          <ScalarProperty Name="ID_Client_send" ColumnName="ID_Client_send" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Mesaj_Companie_Client">
-      <EntityTypeMapping TypeName="LinkedinModel.Mesaj_Companie_Client">
-        <MappingFragment StoreEntitySet="Mesaj_Companie_Client">
-          <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
-          <ScalarProperty Name="ID_client" ColumnName="ID_client" />
-          <ScalarProperty Name="ID_companie" ColumnName="ID_companie" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

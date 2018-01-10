@@ -14,6 +14,7 @@ namespace proiect
     
     public partial class Aptitudini
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Aptitudini()
         {
             this.Client = new HashSet<Client>();
@@ -23,7 +24,9 @@ namespace proiect
         public int ID_Aptitudini { get; set; }
         public string Aptitudine { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Client> Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Companie> Companie { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace proiect
             InitializeComponent();
           
 
-                LinkedinEntities3 context = new LinkedinEntities3();
+                LinkedinEntities5 context = new LinkedinEntities5();
 
                 dataGridView1.DataSource = context.Client.Where(x =>x.ID_Client!=id_conectat && (x.Nume.Contains(search)||x.Prenume.Contains(search))).ToList();
                 
@@ -38,7 +38,7 @@ namespace proiect
         {
             skill = new List<string>();
            // skill = null;
-            using (var context = new LinkedinEntities3())
+            using (var context = new LinkedinEntities5())
             {
                 var results = context.Client.Include("Aptitudini").Where(s => s.ID_Client == id_client).FirstOrDefault<Client>();
 
@@ -56,7 +56,7 @@ namespace proiect
         {
             skillC = new List<string>();
            // skillC = null;
-            using (var context = new LinkedinEntities3())
+            using (var context = new LinkedinEntities5())
             {
                 var results = context.Companie.Include("Aptitudini").Where(s => s.ID_Companie == id_companie).FirstOrDefault<Companie>();
 
@@ -80,7 +80,7 @@ namespace proiect
                
                 abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
                 int b = Int32.Parse(abc);
-               using (var context = new LinkedinEntities3())
+               using (var context = new LinkedinEntities5())
                   {
 
                       List<string> apt_client = skills(b);
@@ -135,7 +135,7 @@ namespace proiect
                        
                    };
                  int a = Int32.Parse(abc);
-                   using (var context = new LinkedinEntities3())
+                   using (var context = new LinkedinEntities5())
                    {var results=(from c in context.Relatie
                                  where c.ID_client_receive==a && c.ID_client_send==id_cel_care_e_conectat && c.ID_status==1
                                  select c).FirstOrDefault();
@@ -170,7 +170,7 @@ namespace proiect
 
                     };
                     int a = Int32.Parse(abc);
-                    using (var context = new LinkedinEntities3())
+                    using (var context = new LinkedinEntities5())
                     {
                         var results = (from c in context.Relatie
                                        where c.ID_client_receive == a && c.ID_client_send == id_cel_care_e_conectat && c.ID_status == 4
@@ -203,7 +203,7 @@ namespace proiect
                        abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
                         int a = Int32.Parse(abc);
                         int ok = 0;
-                        using (var context = new LinkedinEntities3())
+                        using (var context = new LinkedinEntities5())
                             {
                                 var results = (from c in context.Rating
                                                where c.ID_client_receive == a && c.ID_client_send == id_cel_care_e_conectat
@@ -223,7 +223,7 @@ namespace proiect
                                 Nota = 5
                             };
 
-                            using (var context = new LinkedinEntities3())
+                            using (var context = new LinkedinEntities5())
                             {
                                 context.Rating.Add(newrating);
                                 context.SaveChanges();
@@ -245,7 +245,7 @@ namespace proiect
                                     Nota = 1
                                 };
 
-                                using (var context = new LinkedinEntities3())
+                                using (var context = new LinkedinEntities5())
                                 {
                                     context.Rating.Add(newrating);
                                     context.SaveChanges();
@@ -267,7 +267,7 @@ namespace proiect
                                         Nota = 2
                                     };
 
-                                    using (var context = new LinkedinEntities3())
+                                    using (var context = new LinkedinEntities5())
                                     {
                                         context.Rating.Add(newrating);
                                         context.SaveChanges();
@@ -289,7 +289,7 @@ namespace proiect
                                             Nota = 3
                                         };
 
-                                        using (var context = new LinkedinEntities3())
+                                        using (var context = new LinkedinEntities5())
                                         {
                                             context.Rating.Add(newrating);
                                             context.SaveChanges();
@@ -311,7 +311,7 @@ namespace proiect
                                                 Nota = 4
                                             };
 
-                                            using (var context = new LinkedinEntities3())
+                                            using (var context = new LinkedinEntities5())
                                             {
                                                 context.Rating.Add(newrating);
                                                 context.SaveChanges();

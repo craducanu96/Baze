@@ -87,7 +87,7 @@ namespace proiect
             string skills = SignInCompany.get_skillsC();
             string[] words = skills.Split(delimiters);
 
-            var contextC = new LinkedinEntities3();
+            var contextC = new LinkedinEntities5();
             var newCompanie = new Companie()
             {
                 Nume_companie = nume,
@@ -105,7 +105,7 @@ namespace proiect
                 newCompanie.Aptitudini.Add(apt);
             }
 
-            using (var context = new LinkedinEntities3())
+            using (var context = new LinkedinEntities5())
             {
                 context.Companie.Add(newCompanie);
                 context.SaveChanges();
@@ -132,7 +132,7 @@ namespace proiect
             {
                 txtSkillsRequest.Text += s + ' ';
             }
-            using (var context = new LinkedinEntities3())
+            using (var context = new LinkedinEntities5())
             {
                 id_companie_logata = (from c in context.Companie
                                    where c.UsernameC.Equals(nume)
@@ -175,7 +175,7 @@ namespace proiect
                 if (search != null)
                 {
 
-                    using (var context = new LinkedinEntities3())
+                    using (var context = new LinkedinEntities5())
                     {
                         var results = from c in context.Client
                                       where c.Nume.Contains(search) || c.Prenume.Contains(search)
