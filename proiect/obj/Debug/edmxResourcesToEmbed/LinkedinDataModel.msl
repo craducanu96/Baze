@@ -195,5 +195,23 @@
     <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="LinkedinModel.Store.sp_helpdiagrams" />
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="LinkedinModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="LinkedinModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="AfiseazaMesajePentruClient1" FunctionName="LinkedinModel.Store.AfiseazaMesajePentruClient">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LinkedinModel.AfiseazaMesajePentruClient1_Result">
+          <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+          <ScalarProperty Name="ID_companie" ColumnName="ID_companie" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AfiseazaNotificari" FunctionName="LinkedinModel.Store.AfiseazaNotificari" />
+    <FunctionImportMapping FunctionImportName="ClientDupaID" FunctionName="LinkedinModel.Store.ClientDupaID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LinkedinModel.ClientDupaID_Result">
+          <ScalarProperty Name="Nume" ColumnName="Nume" />
+          <ScalarProperty Name="Prenume" ColumnName="Prenume" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UserDupaID" FunctionName="LinkedinModel.Store.UserDupaID" />
   </EntityContainerMapping>
 </Mapping>

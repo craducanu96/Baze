@@ -19,22 +19,51 @@ namespace proiect
         {
            InitializeComponent();
             emitator = emi;
-            receptor = Int32.Parse(desti);
+           
 
             if (tip.Equals("Client-Client"))
             {
                 ok = 0;
+                string aux = null;
+                using (var context = new LinkedinEntities5())
+                {
+                    var results = from item in context.Client
+                                  where item.Username == desti
+                                  select new
+                                  {
+                                      item.ID_Client
+                                  };
+                    foreach (var it in results)
+                    {
+                        aux = it.ID_Client.ToString();
+                    }
+                }
 
+                receptor = Int32.Parse(aux);
             }
             else if (tip.Equals("Companie-Client"))
             {
                 ok = 1;
-
+                receptor = Int32.Parse(desti);
             }
             else if (tip.Equals("Client-Companie"))
             {
                 ok = 2;
-
+                string aux = null;
+                using (var context = new LinkedinEntities5())
+                {
+                    var results = from item in context.Companie
+                                  where item.UsernameC == desti
+                                  select new
+                                  {
+                                      item.ID_Companie
+                                  };
+                    foreach (var it in results)
+                    {
+                        aux = it.ID_Companie.ToString();
+                    }
+                }
+                receptor = Int32.Parse(aux);
             }
            
             

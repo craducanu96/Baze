@@ -173,5 +173,68 @@ namespace proiect
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<string> AfiseazaMesaje(string id_client_logat)
+        {
+            var id_client_logatParameter = id_client_logat != null ?
+                new ObjectParameter("id_client_logat", id_client_logat) :
+                new ObjectParameter("id_client_logat", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("AfiseazaMesaje", id_client_logatParameter);
+        }
+    
+        public virtual ObjectResult<string> AfiseazaMesajePentruClient(string id_client_logat)
+        {
+            var id_client_logatParameter = id_client_logat != null ?
+                new ObjectParameter("id_client_logat", id_client_logat) :
+                new ObjectParameter("id_client_logat", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("AfiseazaMesajePentruClient", id_client_logatParameter);
+        }
+    
+        public virtual ObjectResult<MesajePentruClient_Result> MesajePentruClient(string id_client_logat)
+        {
+            var id_client_logatParameter = id_client_logat != null ?
+                new ObjectParameter("id_client_logat", id_client_logat) :
+                new ObjectParameter("id_client_logat", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MesajePentruClient_Result>("MesajePentruClient", id_client_logatParameter);
+        }
+    
+        public virtual ObjectResult<AfiseazaMesajePentruClient1_Result> AfiseazaMesajePentruClient1(Nullable<int> id_client_logat)
+        {
+            var id_client_logatParameter = id_client_logat.HasValue ?
+                new ObjectParameter("id_client_logat", id_client_logat) :
+                new ObjectParameter("id_client_logat", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AfiseazaMesajePentruClient1_Result>("AfiseazaMesajePentruClient1", id_client_logatParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> AfiseazaNotificari(Nullable<int> id_client_logat)
+        {
+            var id_client_logatParameter = id_client_logat.HasValue ?
+                new ObjectParameter("id_client_logat", id_client_logat) :
+                new ObjectParameter("id_client_logat", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AfiseazaNotificari", id_client_logatParameter);
+        }
+    
+        public virtual ObjectResult<ClientDupaID_Result> ClientDupaID(Nullable<int> id_client)
+        {
+            var id_clientParameter = id_client.HasValue ?
+                new ObjectParameter("id_client", id_client) :
+                new ObjectParameter("id_client", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ClientDupaID_Result>("ClientDupaID", id_clientParameter);
+        }
+    
+        public virtual ObjectResult<string> UserDupaID(Nullable<int> id_client)
+        {
+            var id_clientParameter = id_client.HasValue ?
+                new ObjectParameter("id_client", id_client) :
+                new ObjectParameter("id_client", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("UserDupaID", id_clientParameter);
+        }
     }
 }

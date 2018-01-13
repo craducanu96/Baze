@@ -29,19 +29,12 @@ namespace proiect
             LinkedinEntities5 context = new LinkedinEntities5();
 
             dataGridView1.DataSource = context.Companie.Where(x =>x.ID_Companie!=id_conectat && x.Nume_companie.Contains(search)).ToList();
-
-           
-
-
-          
-                
-        
-        
+                    
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            string abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Companie.Index].Value.ToString();
+            string abc = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
 
             Form form = new SentMessage(abc, id_cine_e_conectat, "Client-Companie");
             form.Show();

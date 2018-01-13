@@ -387,6 +387,27 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="AfiseazaMesaje" ReturnType="Collection(String)">
+      <Parameter Name="id_client_logat" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AfiseazaMesajePentruClient" ReturnType="Collection(String)">
+      <Parameter Name="id_client_logat" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="MesajePentruClient" ReturnType="Collection(LinkedinModel.MesajePentruClient_Result)">
+      <Parameter Name="id_client_logat" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AfiseazaMesajePentruClient1" ReturnType="Collection(LinkedinModel.AfiseazaMesajePentruClient1_Result)">
+      <Parameter Name="id_client_logat" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AfiseazaNotificari" ReturnType="Collection(Int32)">
+      <Parameter Name="id_client_logat" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ClientDupaID" ReturnType="Collection(LinkedinModel.ClientDupaID_Result)">
+      <Parameter Name="id_client" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UserDupaID" ReturnType="Collection(String)">
+      <Parameter Name="id_client" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CautaClient_Result">
     <Property Type="Int32" Name="ID_Client" Nullable="false" />
@@ -416,6 +437,18 @@
     <Property Type="String" Name="ParolaC" Nullable="true" />
   </ComplexType>
   <ComplexType Name="Procedura_Result">
+    <Property Type="String" Name="Nume" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Prenume" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="MesajePentruClient_Result">
+    <Property Type="String" Name="Mesaj" Nullable="false" />
+    <Property Type="Int32" Name="ID_companie" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="AfiseazaMesajePentruClient1_Result">
+    <Property Type="String" Name="Mesaj" Nullable="false" />
+    <Property Type="Int32" Name="ID_companie" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="ClientDupaID_Result">
     <Property Type="String" Name="Nume" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="Prenume" Nullable="true" MaxLength="50" />
   </ComplexType>

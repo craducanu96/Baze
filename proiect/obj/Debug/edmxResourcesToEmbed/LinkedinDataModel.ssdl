@@ -132,17 +132,6 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6013: The table/view 'Linkedin.dbo.NUME' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="NUME">
-          <Property Name="Nume" Type="nvarchar" MaxLength="101" />
-        </EntityType>-->
-  <!--Errors Found During Generation:
-warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="NUME_CLIENT">
-          <Property Name="Nume" Type="nvarchar" MaxLength="50" />
-          <Property Name="Prenume" Type="nvarchar" MaxLength="50" />
-        </EntityType>-->
   <Association Name="FK_Aptitudini_Client">
     <End Role="Aptitudini" Type="Self.Aptitudini" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -331,12 +320,21 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="AfiseazaMesajePentruClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id_client_logat" Type="int" Mode="In" />
+  </Function>
+  <Function Name="AfiseazaNotificari" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id_client_logat" Type="int" Mode="In" />
+  </Function>
   <Function Name="CautaClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="nume" Type="nvarchar" Mode="In" />
     <Parameter Name="prenume" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="CautaCompanie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="nume" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="ClientDupaID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id_client" Type="int" Mode="In" />
   </Function>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
   <Function Name="Procedura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -372,6 +370,9 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="UserDupaID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id_client" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="LinkedinModelStoreContainer">
     <EntitySet Name="Aptitudini" EntityType="Self.Aptitudini" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Aptitudini_Client" EntityType="Self.Aptitudini_Client" Schema="dbo" store:Type="Tables" />

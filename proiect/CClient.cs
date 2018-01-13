@@ -193,7 +193,28 @@ namespace proiect
                     listBox1.Items.Add(suma.ToString());
                 }
             }
-
+            using (var context = new LinkedinEntities5())
+            {
+                var results = context.Relatie;
+                foreach (var it in results)
+                {
+                    if(it.ID_client_receive==id_client_logat && it.ID_status==1)
+                    {
+                        dataGridView1.DataSource = context.ClientDupaID(it.ID_client_send);
+                        DataGridViewComboBoxColumn choose = new DataGridViewComboBoxColumn();
+                        choose.Name = "Choose";
+                        choose.HeaderText = "Choose";
+                        choose.Items.Add("Accept");
+                        choose.Items.Add("Decline");
+                        dataGridView1.Columns.Insert(2, choose);
+                        DataGridViewButtonColumn Respond = new DataGridViewButtonColumn();
+                        Respond.Name = "Respond";
+                        Respond.Text = "Respond";
+                        dataGridView1.Columns.Insert(3, Respond);
+                    }
+                }
+            }
+           
         }
 
 
@@ -210,7 +231,10 @@ namespace proiect
         {
             c_panel_Notification++;
             if (c_panel_Notification % 2 == 0)
+            {
+                
                 panelNotification.Visible = true;
+            }
             else
                 panelNotification.Visible = false;
 
@@ -221,7 +245,7 @@ namespace proiect
             panelDetails.Visible = false;
             panelNotification.Visible = false;
 
-            Form form = new Messaging();
+            Form form = new Messaging(id_client_logat);
             form.Show();
 
 
@@ -277,10 +301,31 @@ namespace proiect
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show("Friend requesst accepted",
-                "Information",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            string click = null;
+
+            if (dataGridView1.Columns.Contains("Respond") && dataGridView1.Columns["Respond"].Visible && e.ColumnIndex == dataGridView1.Columns["Respond"].Index)
+            {
+
+                click = dataGridView1.Rows[e.RowIndex].Cells[1].ToString();
+
+                if (dataGridView1.Rows[e.RowIndex].Cells["Choose"].FormattedValue.ToString().Equals("Accept"))
+                {
+                    MessageBox.Show("Friend requesst accepted",
+                    "Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+                else
+                    if(dataGridView1.Rows[e.RowIndex].Cells["Choose"].FormattedValue.ToString().Equals("Decline"))
+                    {
+                        MessageBox.Show("Friend requesst declined",
+                        "Information",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    }
+                
+            }
+                
 
         }
 
@@ -302,6 +347,11 @@ namespace proiect
         }
 
         private void txtAddress_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CClient_Load(object sender, EventArgs e)
         {
 
         }

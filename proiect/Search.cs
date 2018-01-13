@@ -108,7 +108,7 @@ namespace proiect
                     form.Show();
                 
             }
-            else if (dataGridView1.Columns.Contains("SendMessageClient") && dataGridView1.Columns["SendMessageClient"].Visible && e.ColumnIndex == dataGridView1.Columns["SendMessageClient"].Index)
+            else if (dataGridView1.Columns.Contains("SendMessage") && dataGridView1.Columns["SendMessage"].Visible && e.ColumnIndex == dataGridView1.Columns["SendMessage"].Index)
             {
 
                 abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();

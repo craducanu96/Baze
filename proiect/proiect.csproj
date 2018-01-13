@@ -58,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AfiseazaMesajePentruClient1_Result.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Aptitudini.cs">
       <DependentUpon>LinkedinDataModel.tt</DependentUpon>
     </Compile>
@@ -80,6 +83,9 @@
       <DependentUpon>CCompanie.cs</DependentUpon>
     </Compile>
     <Compile Include="Client.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClientDupaID_Result.cs">
       <DependentUpon>LinkedinDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Companie.cs">
@@ -116,6 +122,9 @@
     </Compile>
     <Compile Include="LogIn.Designer.cs">
       <DependentUpon>LogIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MesajePentruClient_Result.cs">
+      <DependentUpon>LinkedinDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Mesaj_Client_Client.cs">
       <DependentUpon>LinkedinDataModel.tt</DependentUpon>

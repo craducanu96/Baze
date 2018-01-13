@@ -41,7 +41,7 @@ namespace proiect
             this.Match = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rating = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.SendRating = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.SendMessageClient = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.SendMessage = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Message = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ID_Client = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,7 +72,7 @@ namespace proiect
             this.Match,
             this.Rating,
             this.SendRating,
-            this.SendMessageClient,
+            this.SendMessage,
             this.Message,
             this.ID_Client,
             this.numeDataGridViewTextBoxColumn,
@@ -84,9 +84,10 @@ namespace proiect
             this.telefonDataGridViewTextBoxColumn,
             this.nationalitateDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.clientBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
+            this.dataGridView1.Location = new System.Drawing.Point(16, 15);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(804, 465);
+            this.dataGridView1.Size = new System.Drawing.Size(1072, 572);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -133,10 +134,10 @@ namespace proiect
             this.SendRating.Name = "SendRating";
             this.SendRating.ReadOnly = true;
             // 
-            // SendMessageClient
+            // SendMessage
             // 
-            this.SendMessageClient.HeaderText = "SendMessageClient";
-            this.SendMessageClient.Name = "SendMessageClient";
+            this.SendMessage.HeaderText = "SendMessage";
+            this.SendMessage.Name = "SendMessage";
             // 
             // Message
             // 
@@ -210,12 +211,13 @@ namespace proiect
             // 
             // Search
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(828, 489);
+            this.ClientSize = new System.Drawing.Size(1104, 602);
             this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Search";
@@ -406,7 +408,7 @@ namespace proiect
         private System.Windows.Forms.DataGridViewTextBoxColumn Match;
         private System.Windows.Forms.DataGridViewComboBoxColumn Rating;
         private System.Windows.Forms.DataGridViewButtonColumn SendRating;
-        private System.Windows.Forms.DataGridViewButtonColumn SendMessageClient;
+        private System.Windows.Forms.DataGridViewButtonColumn SendMessage;
         private System.Windows.Forms.DataGridViewButtonColumn Message;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID_Client;
         private System.Windows.Forms.DataGridViewTextBoxColumn numeDataGridViewTextBoxColumn;

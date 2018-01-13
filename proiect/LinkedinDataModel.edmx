@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LinkedinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LinkedinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aptitudini">
           <Key>
             <PropertyRef Name="ID_Aptitudini" />
@@ -137,17 +137,6 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'Linkedin.dbo.NUME' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="NUME">
-          <Property Name="Nume" Type="nvarchar" MaxLength="101" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="NUME_CLIENT">
-          <Property Name="Nume" Type="nvarchar" MaxLength="50" />
-          <Property Name="Prenume" Type="nvarchar" MaxLength="50" />
-        </EntityType>-->
         <Association Name="FK_Aptitudini_Client">
           <End Role="Aptitudini" Type="Self.Aptitudini" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -336,12 +325,21 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AfiseazaMesajePentruClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_client_logat" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AfiseazaNotificari" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_client_logat" Type="int" Mode="In" />
+        </Function>
         <Function Name="CautaClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nume" Type="nvarchar" Mode="In" />
           <Parameter Name="prenume" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="CautaCompanie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nume" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ClientDupaID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_client" Type="int" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="Procedura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -377,6 +375,9 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UserDupaID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_client" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="LinkedinModelStoreContainer">
           <EntitySet Name="Aptitudini" EntityType="Self.Aptitudini" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Aptitudini_Client" EntityType="Self.Aptitudini_Client" Schema="dbo" store:Type="Tables" />
@@ -453,8 +454,7 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
             <End Role="Relatie" EntitySet="Relatie" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LinkedinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -810,10 +810,10 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
             <Parameter Name="prenume" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CautaCompanie" ReturnType="Collection(LinkedinModel.CautaCompanie_Result)">
-            <Parameter Name="nume" Mode="In" Type="String" />
+          <Parameter Name="nume" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Procedura" ReturnType="Collection(LinkedinModel.Procedura_Result)">
-            <Parameter Name="nume" Mode="In" Type="String" />
+          <Parameter Name="nume" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -845,6 +845,27 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="AfiseazaMesaje" ReturnType="Collection(String)">
+          <Parameter Name="id_client_logat" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AfiseazaMesajePentruClient" ReturnType="Collection(String)">
+            <Parameter Name="id_client_logat" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MesajePentruClient" ReturnType="Collection(LinkedinModel.MesajePentruClient_Result)">
+            <Parameter Name="id_client_logat" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AfiseazaMesajePentruClient1" ReturnType="Collection(LinkedinModel.AfiseazaMesajePentruClient1_Result)">
+          <Parameter Name="id_client_logat" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AfiseazaNotificari" ReturnType="Collection(Int32)">
+          <Parameter Name="id_client_logat" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ClientDupaID" ReturnType="Collection(LinkedinModel.ClientDupaID_Result)">
+          <Parameter Name="id_client" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UserDupaID" ReturnType="Collection(String)">
+            <Parameter Name="id_client" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CautaClient_Result">
           <Property Type="Int32" Name="ID_Client" Nullable="false" />
@@ -874,6 +895,18 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           <Property Type="String" Name="ParolaC" Nullable="true" />
         </ComplexType>
         <ComplexType Name="Procedura_Result">
+          <Property Type="String" Name="Nume" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Prenume" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="MesajePentruClient_Result">
+          <Property Type="String" Name="Mesaj" Nullable="false" />
+          <Property Type="Int32" Name="ID_companie" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="AfiseazaMesajePentruClient1_Result">
+          <Property Type="String" Name="Mesaj" Nullable="false" />
+          <Property Type="Int32" Name="ID_companie" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ClientDupaID_Result">
           <Property Type="String" Name="Nume" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Prenume" Nullable="true" MaxLength="50" />
         </ComplexType>
@@ -1077,6 +1110,24 @@ warning 6013: The table/view 'Linkedin.dbo.NUME_CLIENT' does not have a primary 
           <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="LinkedinModel.Store.sp_helpdiagrams" />
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="LinkedinModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="LinkedinModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="AfiseazaMesajePentruClient1" FunctionName="LinkedinModel.Store.AfiseazaMesajePentruClient">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LinkedinModel.AfiseazaMesajePentruClient1_Result">
+                <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+                <ScalarProperty Name="ID_companie" ColumnName="ID_companie" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AfiseazaNotificari" FunctionName="LinkedinModel.Store.AfiseazaNotificari" />
+          <FunctionImportMapping FunctionImportName="ClientDupaID" FunctionName="LinkedinModel.Store.ClientDupaID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LinkedinModel.ClientDupaID_Result">
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Prenume" ColumnName="Prenume" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UserDupaID" FunctionName="LinkedinModel.Store.UserDupaID" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
