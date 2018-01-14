@@ -25,26 +25,42 @@ namespace proiect
             {
                 ok = 0;
                 string aux = null;
+                string a = null;
                 using (var context = new LinkedinEntities5())
                 {
                     var results = from item in context.Client
-                                  where item.Username == desti
+                                  where item.Nume == desti || item.Username==desti
                                   select new
                                   {
                                       item.ID_Client
                                   };
-                    foreach (var it in results)
+                    foreach(var it in results)
                     {
-                        aux = it.ID_Client.ToString();
+                        a = it.ID_Client.ToString();
                     }
                 }
-
-                receptor = Int32.Parse(aux);
+                receptor = Int32.Parse(a);
             }
             else if (tip.Equals("Companie-Client"))
             {
                 ok = 1;
-                receptor = Int32.Parse(desti);
+                string aux=null;
+                
+                    using (var context = new LinkedinEntities5())
+                    {
+                        var results = from item in context.Client
+                                      where item.Username == desti ||item.ID_Client.ToString()==desti
+                                      select new
+                                      {
+                                          item.ID_Client
+                                      };
+                        foreach (var it in results)
+                        {
+                            aux = it.ID_Client.ToString();
+                        }
+                    }
+                    receptor = Int32.Parse(aux);
+                
             }
             else if (tip.Equals("Client-Companie"))
             {
@@ -126,12 +142,6 @@ namespace proiect
                         context.SaveChanges();
                     }
                 }
-              
-                
-
-               
-                
-
                 MessageBox.Show("Message was sent",
                     "Information",
                     MessageBoxButtons.OK,

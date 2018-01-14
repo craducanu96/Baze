@@ -373,6 +373,9 @@
   <Function Name="UserDupaID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id_client" Type="int" Mode="In" />
   </Function>
+  <Function Name="UserDupaIDforC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id_comp" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="LinkedinModelStoreContainer">
     <EntitySet Name="Aptitudini" EntityType="Self.Aptitudini" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Aptitudini_Client" EntityType="Self.Aptitudini_Client" Schema="dbo" store:Type="Tables" />

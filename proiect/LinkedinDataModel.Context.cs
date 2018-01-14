@@ -236,5 +236,14 @@ namespace proiect
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("UserDupaID", id_clientParameter);
         }
+    
+        public virtual ObjectResult<string> UserDupaIDforC(Nullable<int> id_comp)
+        {
+            var id_compParameter = id_comp.HasValue ?
+                new ObjectParameter("id_comp", id_comp) :
+                new ObjectParameter("id_comp", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("UserDupaIDforC", id_compParameter);
+        }
     }
 }

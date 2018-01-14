@@ -245,7 +245,7 @@ namespace proiect
             panelDetails.Visible = false;
             panelNotification.Visible = false;
 
-            Form form = new Messaging(id_client_logat);
+            Form form = new Messaging(id_client_logat,1);
             form.Show();
 
 
@@ -270,10 +270,8 @@ namespace proiect
                                   select c;
                     if (results.Any())
                     {
-
                         Form form = new Search(search, "Client", id_client_logat);
                         form.Show();
-
                     }
                     else
                     {
@@ -282,7 +280,6 @@ namespace proiect
                                        select c;
                         if (results1.Any())
                         {
-
                             Form form = new SearchC(search,"Client", id_client_logat);
                             form.Show();
                         }

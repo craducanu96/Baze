@@ -378,6 +378,9 @@
         <Function Name="UserDupaID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_client" Type="int" Mode="In" />
         </Function>
+        <Function Name="UserDupaIDforC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_comp" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="LinkedinModelStoreContainer">
           <EntitySet Name="Aptitudini" EntityType="Self.Aptitudini" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Aptitudini_Client" EntityType="Self.Aptitudini_Client" Schema="dbo" store:Type="Tables" />
@@ -864,7 +867,10 @@
           <Parameter Name="id_client" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UserDupaID" ReturnType="Collection(String)">
-            <Parameter Name="id_client" Mode="In" Type="Int32" />
+          <Parameter Name="id_client" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UserDupaIDforC" ReturnType="Collection(String)">
+            <Parameter Name="id_comp" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CautaClient_Result">
@@ -1128,6 +1134,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="UserDupaID" FunctionName="LinkedinModel.Store.UserDupaID" />
+          <FunctionImportMapping FunctionImportName="UserDupaIDforC" FunctionName="LinkedinModel.Store.UserDupaIDforC" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

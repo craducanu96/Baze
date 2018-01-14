@@ -101,17 +101,17 @@ namespace proiect
             }
             if (dataGridView1.Columns.Contains("Message") && dataGridView1.Columns["Message"].Visible)
             {
-                
-                    abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
 
-                    Form form = new SentMessage(abc, id_cel_care_e_conectat,"Companie-Client");
-                    form.Show();
-                
+                abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
+
+                Form form = new SentMessage(abc, id_cel_care_e_conectat, "Companie-Client");
+                form.Show();
+
             }
             else if (dataGridView1.Columns.Contains("SendMessage") && dataGridView1.Columns["SendMessage"].Visible && e.ColumnIndex == dataGridView1.Columns["SendMessage"].Index)
             {
-
-                abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
+                 
+                abc = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
 
                 Form form = new SentMessage(abc, id_cel_care_e_conectat,"Client-Client");
                 form.Show();

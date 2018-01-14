@@ -408,6 +408,9 @@
     <FunctionImport Name="UserDupaID" ReturnType="Collection(String)">
       <Parameter Name="id_client" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="UserDupaIDforC" ReturnType="Collection(String)">
+      <Parameter Name="id_comp" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CautaClient_Result">
     <Property Type="Int32" Name="ID_Client" Nullable="false" />

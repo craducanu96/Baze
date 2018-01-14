@@ -213,5 +213,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="UserDupaID" FunctionName="LinkedinModel.Store.UserDupaID" />
+    <FunctionImportMapping FunctionImportName="UserDupaIDforC" FunctionName="LinkedinModel.Store.UserDupaIDforC" />
   </EntityContainerMapping>
 </Mapping>

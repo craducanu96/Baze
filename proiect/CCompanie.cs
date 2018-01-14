@@ -154,7 +154,7 @@ namespace proiect
         {
             panelDetails.Visible = false;
 
-            Form form = new Messaging(id_companie_logata);
+            Form form = new Messaging(id_companie_logata,2);
             form.Show();
         }
 
