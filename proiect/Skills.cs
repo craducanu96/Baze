@@ -34,16 +34,20 @@ namespace proiect
 
         private void btOk_Click(object sender, EventArgs e)
         {
-            if (skills == null)
+            try
             {
-                MessageBox.Show("No skill checked!",
-                    "Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                if (skills == null)
+                {
+                    throw new Exception("No skill checked!");
+                }
+                else
+                {
+                    this.Close();
+                }
             }
-            else
+            catch(Exception ex)
             {
-                this.Close();
+                MessageBox.Show(ex.Message);
             }
         }
 

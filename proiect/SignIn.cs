@@ -190,78 +190,62 @@ namespace proiect
 
         private void btNext_Click(object sender, EventArgs e)
         {
+            try
+            {
 
-            if (username != null && IfExistsUsername(username) == true)
-            {
-                MessageBox.Show("Username already exist!",
-                "ERROR",
-               MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
-            }
+                if (username != null && IfExistsUsername(username) == true)
+                {
+                    throw new Exception("Username already exist!");
+                }
 
-            else if (pass != null && Conditions(pass) == false)
-            {
-                MessageBox.Show("Aruncati voi o exceptie ca nu contine anumite caractere",
-                        "Warning",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-            }
+                else if (pass != null && Conditions(pass) == false)
+                {
+                    throw new Exception("Parola nu coresounde conditiilor!");
+                }
 
-            else if (pass != null && checkpass != null && pass.Equals(checkpass) == false)
-            {
-                MessageBox.Show("Password dosen't match",
-                       "Warning",
-                       MessageBoxButtons.OK,
-                       MessageBoxIcon.Warning);
-            }
+                else if (pass != null && checkpass != null && pass.Equals(checkpass) == false)
+                {
+                    throw new Exception("Password dosen't match!");
+                }
 
-            else if (email != null && ValidEmailAddress(email) == false)
-            {
-                MessageBox.Show("E-mail address must be valid e-mail address format!",
-                "ERROR",
-               MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
-            }
+                else if (email != null && ValidEmailAddress(email) == false)
+                {
+                    throw new Exception("E-mail address must be valid e-mail address format!");
+                }
 
-            else if (IfExistsEmail(email) == true)
-            {
-                MessageBox.Show("Email already exist!",
-                "ERROR",
-               MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
-            }
+                else if (IfExistsEmail(email) == true)
+                {
+                    throw new Exception("Email already exist!");
+                }
 
-            else if (IsPhoneNumber(phone) == false)
-            {
-                MessageBox.Show("Number incorect!",
-                "ERROR",
-               MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
-            }
+                else if (IsPhoneNumber(phone) == false)
 
-            else if (firstname != null && lastname != null
-                && username != null && phone != null
-                && email != null && status != null
-                && pass != null && checkpass != null
-                && date != null && universiy != null
-                && adress != null && sex != null
-                && nationality != null && Skills.get_skill() != null)
-            {
-                MessageBox.Show("Register successfully",
-                "Information",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-                this.Close();
-                CClient.inregistreaza_client(firstname, lastname, username, pass, phone, email, date, universiy, adress, sex_id, status_id, nationality, result);
-                Form form = new CClient(firstname, lastname, username, phone, email, date, universiy, adress, sex, status, nationality, Skills.get_skill(), pbProfile.Image);
-                form.Show();
+                {
+                    throw new Exception("Number incorect!");
+                }
+
+                else if (firstname != null && lastname != null
+                    && username != null && phone != null
+                    && email != null && status != null
+                    && pass != null && checkpass != null
+                    && date != null && universiy != null
+                    && adress != null && sex != null
+                    && nationality != null && Skills.get_skill() != null)
+                {
+                    throw new Exception("Register successfully!");
+                    this.Close();
+                    CClient.inregistreaza_client(firstname, lastname, username, pass, phone, email, date, universiy, adress, sex_id, status_id, nationality, result);
+                    Form form = new CClient(firstname, lastname, username, phone, email, date, universiy, adress, sex, status, nationality, Skills.get_skill(), pbProfile.Image);
+                    form.Show();
+                }
+                else
+                {
+                    throw new Exception("Some empty filled!");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Some empty filled!",
-                     "ERROR",
-                     MessageBoxButtons.OK,
-                     MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -302,7 +286,6 @@ namespace proiect
 
         private void btPicture_Click(object sender, EventArgs e)
         {
-
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Image | *.jpeg *.png *.jpg |All| *.*";
 

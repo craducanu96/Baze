@@ -94,69 +94,69 @@ namespace proiect
 
         private void btSend_Click(object sender, EventArgs e)
         {
-            if (message != null)
+            try
             {
-
-                if (ok == 1)
+                if (message != null)
                 {
-                    var newmessage = new Mesaj_Companie_Client()
+
+                    if (ok == 1)
+                    {
+                        var newmessage = new Mesaj_Companie_Client()
                         {
                             ID_client = receptor,
                             ID_companie = emitator,
                             Mesaj = message
 
                         };
-                    using (var context = new LinkedinEntities5())
-                    {
-                        context.Mesaj_Companie_Client.Add(newmessage);
-                        context.SaveChanges();
+                        using (var context = new LinkedinEntities5())
+                        {
+                            context.Mesaj_Companie_Client.Add(newmessage);
+                            context.SaveChanges();
+                        }
                     }
-                }
-                else if (ok==0)
-                {
-                    var newmessage = new Mesaj_Client_Client()
+                    else if (ok == 0)
                     {
-                        ID_Client_Receive=receptor,
-                        ID_Client_Send=emitator,
-                        Mesaj = message
+                        var newmessage = new Mesaj_Client_Client()
+                        {
+                            ID_Client_Receive = receptor,
+                            ID_Client_Send = emitator,
+                            Mesaj = message
 
-                    };
-                    using (var context = new LinkedinEntities5())
-                    {
-                        context.Mesaj_Client_Client.Add(newmessage);
-                        context.SaveChanges();
+                        };
+                        using (var context = new LinkedinEntities5())
+                        {
+                            context.Mesaj_Client_Client.Add(newmessage);
+                            context.SaveChanges();
+                        }
                     }
-                }
-                else if(ok==2)
-                {
-                    var newmessage = new Mesaj_Client_Companie()
+                    else if (ok == 2)
                     {
-                       ID_Client_send=emitator,
-                       ID_Companie_receive=receptor,
-                        Mesaj = message
+                        var newmessage = new Mesaj_Client_Companie()
+                        {
+                            ID_Client_send = emitator,
+                            ID_Companie_receive = receptor,
+                            Mesaj = message
 
-                    };
-                    using (var context = new LinkedinEntities5())
-                    {
-                        context.Mesaj_Client_Companie.Add(newmessage);
-                        context.SaveChanges();
+                        };
+                        using (var context = new LinkedinEntities5())
+                        {
+                            context.Mesaj_Client_Companie.Add(newmessage);
+                            context.SaveChanges();
+                        }
                     }
+                    throw new Exception("Message was sent!");
+                    message = null;
+                    this.Close();
                 }
-                MessageBox.Show("Message was sent",
-                    "Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                message = null;
-                this.Close();
+                else
+                {
+                    throw new Exception("Can't send an emply message!");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Can't send an emply message",
-                    "Warning",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message);
             }
-
         }
     }
 }

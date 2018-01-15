@@ -259,68 +259,72 @@ namespace proiect
 
         private void bSearch_Click(object sender, EventArgs e)
         {
-            //aici trebuie sa cautati in baza de date si sa afisati in gridView
-            if (search != null)
+            try
             {
-
-                using (var context = new LinkedinEntities5())
+                if (search != null)
                 {
-                    var results = from c in context.Client
-                                  where c.Nume.Contains(search) || c.Prenume.Contains(search)
-                                  select c;
-                    if (results.Any())
+
+                    using (var context = new LinkedinEntities5())
                     {
-                        Form form = new Search(search, "Client", id_client_logat);
-                        form.Show();
-                    }
-                    else
-                    {
-                        var results1 = from c in context.Companie
-                                       where c.Nume_companie.Contains(search)
-                                       select c;
-                        if (results1.Any())
+                        var results = from c in context.Client
+                                      where c.Nume.Contains(search) || c.Prenume.Contains(search)
+                                      select c;
+                        if (results.Any())
                         {
-                            Form form = new SearchC(search,"Client", id_client_logat);
+                            Form form = new Search(search, "Client", id_client_logat);
                             form.Show();
                         }
-                        else MessageBox.Show("Utilizatorul nu exista!");
+                        else
+                        {
+                            var results1 = from c in context.Companie
+                                           where c.Nume_companie.Contains(search)
+                                           select c;
+                            if (results1.Any())
+                            {
+                                Form form = new SearchC(search, "Client", id_client_logat);
+                                form.Show();
+                            }
+                            else throw new Exception("Utilizatorul nu exista");
+                        }
                     }
                 }
+                else
+                {
+                    throw new Exception("Search box is empty, can't search");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Search box is empty, can't search",
-                    "WARNING",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            string click = null;
-
-            if (dataGridView1.Columns.Contains("Respond") && dataGridView1.Columns["Respond"].Visible && e.ColumnIndex == dataGridView1.Columns["Respond"].Index)
+            try
             {
+                string click = null;
 
-                click = dataGridView1.Rows[e.RowIndex].Cells[1].ToString();
-
-                if (dataGridView1.Rows[e.RowIndex].Cells["Choose"].FormattedValue.ToString().Equals("Accept"))
+                if (dataGridView1.Columns.Contains("Respond") && dataGridView1.Columns["Respond"].Visible && e.ColumnIndex == dataGridView1.Columns["Respond"].Index)
                 {
-                    MessageBox.Show("Friend requesst accepted",
-                    "Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                }
-                else
-                    if(dataGridView1.Rows[e.RowIndex].Cells["Choose"].FormattedValue.ToString().Equals("Decline"))
+
+                    click = dataGridView1.Rows[e.RowIndex].Cells[1].ToString();
+
+                    if (dataGridView1.Rows[e.RowIndex].Cells["Choose"].FormattedValue.ToString().Equals("Accept"))
                     {
-                        MessageBox.Show("Friend requesst declined",
-                        "Information",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                        throw new Exception("Friend request accepted");  
                     }
-                
+                    else
+                        if (dataGridView1.Rows[e.RowIndex].Cells["Choose"].FormattedValue.ToString().Equals("Decline"))
+                    {
+                        throw new Exception("Friend request declined");
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
                 
 

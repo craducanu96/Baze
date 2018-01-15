@@ -74,63 +74,52 @@ namespace proiect
 
         private void btNextCompany_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (companyname != null && SignIn.IfExistsUsername(companyname) == true)
+                {
+                    throw new Exception("Company already exist!");
 
-            if (companyname != null && SignIn.IfExistsUsername(companyname) == true)
-            {
-                MessageBox.Show("Company already exist!",
-                "ERROR",
-               MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
-            }
-            else if (passC != null && SignIn.Conditions(passC) == false)
-            {
-                MessageBox.Show("Aruncati voi o exceptie ca nu contine anumite caractere",
-                        "Warning",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-            }
-            else if (passC != null && checkpassC != null && passC.Equals(checkpassC) == false)
-            {
-                MessageBox.Show("Password dosen't match",
-                       "Warning",
-                       MessageBoxButtons.OK,
-                       MessageBoxIcon.Warning);
-            }
-            else if (emailC != null && SignIn.ValidEmailAddress(emailC) == false)
-            {
-                MessageBox.Show("E-mail address must be valid e-mail address format!",
-                "ERROR",
-               MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
-            }
+                }
+                else if (passC != null && SignIn.Conditions(passC) == false)
+                {
+                    throw new Exception("Parola nu corespunde conditiilor!");
 
-            else if (SignIn.IfExistsEmail(emailC) == true)
-            {
-                MessageBox.Show("Email already exist!",
-                "ERROR",
-               MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
+                }
+                else if (passC != null && checkpassC != null && passC.Equals(checkpassC) == false)
+                {
+                    throw new Exception("Password dosen't match!");
+
+                }
+                else if (emailC != null && SignIn.ValidEmailAddress(emailC) == false)
+                {
+                    throw new Exception("E-mail address must be valid e-mail address format!");
+
+                }
+
+                else if (SignIn.IfExistsEmail(emailC) == true)
+                {
+                    throw new Exception("Email already exist!");
+                }
+                else if (companyname != null && CEO != null
+                            && addressC != null && phoneC != null
+                            && emailC != null && skillsC != null
+                            && passC != null && checkpassC != null)
+                {
+                    throw new Exception("Register successfully!");
+                    this.Close();
+                    CCompanie.inregistreaza_companie(CEO, companyname, addressC, emailC, phoneC, passC);
+                    Form form = new CCompanie(CEO, companyname, addressC, emailC, phoneC, get_skillsC());
+                    form.Show();
+                }
+                else
+                {
+                    throw new Exception("Some empty filled!");
+                }
             }
-            else if (companyname != null && CEO != null
-                        && addressC != null && phoneC != null
-                        && emailC != null && skillsC != null
-                        && passC != null && checkpassC != null)
+            catch(Exception ex)
             {
-                MessageBox.Show("Register successfully",
-                     "Information",
-                     MessageBoxButtons.OK,
-                     MessageBoxIcon.Information);
-                this.Close();
-                CCompanie.inregistreaza_companie(CEO, companyname, addressC, emailC, phoneC, passC);
-                Form form = new CCompanie(CEO, companyname, addressC, emailC, phoneC, get_skillsC());
-                form.Show();
-            }
-            else
-            {
-                MessageBox.Show("Some empty filled!",
-                     "ERROR",
-                     MessageBoxButtons.OK,
-                     MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message);
             }
         }
 

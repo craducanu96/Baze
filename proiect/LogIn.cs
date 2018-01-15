@@ -130,131 +130,125 @@ namespace proiect
 
         private void btLogIn_Click(object sender, EventArgs e)
         {
-            //verificari de user si pass
-            if (password == null || username == null)
+            try
             {
-                if (password == null && username != null)
-                {
-                    MessageBox.Show("Please write the password",
-                        "WARNING",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
 
-                }
-                else if (username == null && password != null)
+                if (password == null || username == null)
                 {
-                    MessageBox.Show("Please write the username",
-                        "WARNING",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    MessageBox.Show("Please write the username and the password",
-                        "WARNING",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    if (password == null && username != null)
+                    {
+                        throw new Exception("Please write the password");
 
+                    }
+                    else if (username == null && password != null)
+                    {
+                        throw new Exception("Please write the username");
+                    }
+                    else
+                    {
+                        throw new Exception("Please write the username and the password");
+                    }
+                }
+                else if (username != null && password != null)
+                {
+                    username = txtUsername.Text.ToString();
+                    password = txtPassoword.Text.ToString();
+
+                    if (IfCompany(username, password) == true)
+                    {
+                        var context = new LinkedinEntities5();
+                        var results = from c in context.Companie
+                                      where c.UsernameC.Equals(username)
+                                      select new
+                                      {
+                                          c.ID_Companie,
+                                          c.Director_companie,
+                                          c.Adresa_companie,
+                                          c.Email_companie,
+                                          c.Telefon_companie
+                                      };
+
+                        foreach (var item in results)
+                        {
+                            string director = item.Director_companie;
+                            string adresa = item.Adresa_companie;
+                            string email = item.Email_companie;
+                            string telefon = item.Telefon_companie;
+                            int id_companie = item.ID_Companie;
+
+                            Form form = new CCompanie(director, username, adresa, email, telefon, skillsC(id_companie));
+                            form.Show();
+                        }
+
+
+                    }
+                    else if (IfClient(username, password) == true)
+                    {
+                        var context = new LinkedinEntities5();
+                        var results = from c in context.Client
+                                      where c.Username.Equals(username)
+                                      select new
+                                      {
+                                          c.ID_Client,
+                                          c.Nume,
+                                          c.Prenume,
+                                          c.Data_Nasterii,
+                                          c.Email,
+                                          c.Poza,
+                                          c.Facultate_absolvita,
+                                          c.ID_sex,
+                                          c.ID_statut_social,
+                                          c.Adresa,
+                                          c.Telefon,
+                                          c.Nationalitate,
+                                          c.Limbi_straine
+                                      };
+
+                        foreach (var item in results)
+                        {
+                            string nume = item.Nume;
+                            string prenume = item.Prenume;
+                            string email = item.Email;
+                            string facultate = item.Facultate_absolvita;
+                            string adresa = item.Adresa;
+                            string telefon = item.Telefon;
+                            string nationalitate = item.Nationalitate;
+                            string limbi_straine = item.Limbi_straine;
+                            string data = Convert.ToString(item.Data_Nasterii);
+                            int id_client = item.ID_Client;
+                            string sex;
+                            string statut = null;
+                            if (item.ID_sex.Equals(1))
+                                sex = "Male";
+                            else sex = "Female";
+
+                            if (item.ID_statut_social.Equals(1))
+                                statut = "Single";
+                            else if (item.ID_statut_social.Equals(2))
+                                statut = "In a relationship";
+                            else if (item.ID_statut_social.Equals(3))
+                                statut = "It's complicated";
+                            else if (item.ID_statut_social.Equals(4))
+                                statut = "Widow";
+                            else if (item.ID_statut_social.Equals(5))
+                                statut = "Divorced";
+                            else if (item.ID_statut_social.Equals(6))
+                                statut = "Marriage";
+                            Image result = ConvertByteToImage(item.Poza);
+
+                            Form form = new CClient(nume, prenume, username, telefon, email, data, facultate, adresa, sex, statut, nationalitate, skills(id_client), result);
+                            form.Show();
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Username or password invalid");
+                    }
                 }
             }
-            else if (username != null && password != null)
+            catch(Exception ex)
             {
-                username = txtUsername.Text.ToString();
-                password = txtPassoword.Text.ToString();
-
-                if (IfCompany(username, password) == true)
-                {
-                    var context = new LinkedinEntities5();
-                    var results = from c in context.Companie
-                                  where c.UsernameC.Equals(username)
-                                  select new
-                                  {
-                                      c.ID_Companie,
-                                      c.Director_companie,
-                                      c.Adresa_companie,
-                                      c.Email_companie,
-                                      c.Telefon_companie
-                                  };
-
-                    foreach (var item in results)
-                    {
-                        string director = item.Director_companie;
-                        string adresa = item.Adresa_companie;
-                        string email = item.Email_companie;
-                        string telefon = item.Telefon_companie;
-                        int id_companie = item.ID_Companie;
-
-                        Form form = new CCompanie(director, username, adresa, email, telefon, skillsC(id_companie));
-                        form.Show();
-                    }
-
-
-                }
-                else if (IfClient(username, password) == true)
-                {
-                    var context = new LinkedinEntities5();
-                    var results = from c in context.Client
-                                  where c.Username.Equals(username)
-                                  select new
-                                  {
-                                      c.ID_Client,
-                                      c.Nume,
-                                      c.Prenume,
-                                      c.Data_Nasterii,
-                                      c.Email,
-                                      c.Poza,
-                                      c.Facultate_absolvita,
-                                      c.ID_sex,
-                                      c.ID_statut_social,
-                                      c.Adresa,
-                                      c.Telefon,
-                                      c.Nationalitate,
-                                      c.Limbi_straine
-                                  };
-
-                    foreach (var item in results)
-                    {
-                        string nume = item.Nume;
-                        string prenume = item.Prenume;
-                        string email = item.Email;
-                        string facultate = item.Facultate_absolvita;
-                        string adresa = item.Adresa;
-                        string telefon = item.Telefon;
-                        string nationalitate = item.Nationalitate;
-                        string limbi_straine = item.Limbi_straine;
-                        string data = Convert.ToString(item.Data_Nasterii);
-                        int id_client = item.ID_Client;
-                        string sex;
-                        string statut = null;
-                        if (item.ID_sex.Equals(1))
-                            sex = "Male";
-                        else sex = "Female";
-
-                        if (item.ID_statut_social.Equals(1))
-                            statut = "Single";
-                        else if (item.ID_statut_social.Equals(2))
-                            statut = "In a relationship";
-                        else if (item.ID_statut_social.Equals(3))
-                            statut = "It's complicated";
-                        else if (item.ID_statut_social.Equals(4))
-                            statut = "Widow";
-                        else if (item.ID_statut_social.Equals(5))
-                            statut = "Divorced";
-                        else if (item.ID_statut_social.Equals(6))
-                            statut = "Marriage";
-                        Image result = ConvertByteToImage(item.Poza);
-
-                        Form form = new CClient(nume, prenume, username, telefon, email, data, facultate, adresa, sex, statut, nationalitate, skills(id_client), result);
-                        form.Show();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Username or password invalid",
-                        "ERROR",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                }
+                MessageBox.Show(ex.Message);
             }
         }
 

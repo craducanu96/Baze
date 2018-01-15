@@ -170,52 +170,57 @@ namespace proiect
 
         private void btSearch_Click(object sender, EventArgs e)
         {
-            if (search != null)
+            try
             {
+
                 if (search != null)
                 {
-
-                    using (var context = new LinkedinEntities5())
+                    if (search != null)
                     {
-                        var results = from c in context.Client
-                                      where c.Nume.Contains(search) || c.Prenume.Contains(search)
-                                      select c;
-                        if (results.Any())
-                        {
 
-                            Form form = new Search(search, "Companie", id_companie_logata);
-                           
-                            form.Show();
-
-                        }
-                        else
+                        using (var context = new LinkedinEntities5())
                         {
-                            var results1 = from c in context.Companie
-                                           where c.Nume_companie.Contains(search)
-                                           select c;
-                            if (results1.Any())
+                            var results = from c in context.Client
+                                          where c.Nume.Contains(search) || c.Prenume.Contains(search)
+                                          select c;
+                            if (results.Any())
                             {
 
-                                Form form = new SearchC(search,"Companie", id_companie_logata);
+                                Form form = new Search(search, "Companie", id_companie_logata);
+
                                 form.Show();
+
                             }
-                            else MessageBox.Show("Utilizatorul nu exista!");
+                            else
+                            {
+                                var results1 = from c in context.Companie
+                                               where c.Nume_companie.Contains(search)
+                                               select c;
+                                if (results1.Any())
+                                {
+
+                                    Form form = new SearchC(search, "Companie", id_companie_logata);
+                                    form.Show();
+                                }
+                                else throw new Exception("Utilizatorul nu exista!");
+
+
+                            }
+
 
 
                         }
 
-
-
                     }
-
+                }
+                else
+                {
+                    throw new Exception("Search box is empty, can't search");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Search box is empty, can't search",
-                    "WARNING",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message);
             }
         }
 

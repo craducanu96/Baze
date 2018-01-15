@@ -97,21 +97,24 @@ namespace proiect
 
         private void btOk_Click(object sender, EventArgs e)
         {
+            try
+            {
 
-            if (IfExists(emailForgot, phoneForgot) == true)
-            {
-                panelForgot.Visible = false;
-                panelPassword.Visible = true;
-                btOk1.Visible = false;
-                btOk2.Visible = true;
+                if (IfExists(emailForgot, phoneForgot) == true)
+                {
+                    panelForgot.Visible = false;
+                    panelPassword.Visible = true;
+                    btOk1.Visible = false;
+                    btOk2.Visible = true;
+                }
+                else
+                {
+                    throw new Exception("Email or phone not corresponding");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Email or phone not corresponding",
-                    "ERROR",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
+                MessageBox.Show(ex.Message);
             }
 
         }

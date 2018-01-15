@@ -73,148 +73,139 @@ namespace proiect
 
        
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        { 
-            string abc = null;
-            if (dataGridView1.Columns.Contains("Match") && dataGridView1.Columns["Match"].Visible)
+        {
+            try
             {
-               
-                abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
-                int b = Int32.Parse(abc);
-               using (var context = new LinkedinEntities5())
-                  {
-
-                      List<string> apt_client = skills(b);
-                      List<string> apt_companie = skillsC(id_cel_care_e_conectat);
-                      var message = string.Join(Environment.NewLine, apt_companie);
-                    
-                      var message1 = string.Join(Environment.NewLine, apt_client);
-                     
-                      var matches = apt_client.Intersect(apt_companie).Count();
-                      int count = apt_companie.Count();
-                      
-                     
-                      int procent = (int)Math.Round((double)(100 * matches) / count);
-
-                      dataGridView1.Rows[e.RowIndex].Cells["Match"].Value = procent.ToString()+'%';
-
-                  }
-            }
-            if (dataGridView1.Columns.Contains("Message") && dataGridView1.Columns["Message"].Visible)
-            {
-
-                abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
-
-                Form form = new SentMessage(abc, id_cel_care_e_conectat, "Companie-Client");
-                form.Show();
-
-            }
-            else if (dataGridView1.Columns.Contains("SendMessage") && dataGridView1.Columns["SendMessage"].Visible && e.ColumnIndex == dataGridView1.Columns["SendMessage"].Index)
-            {
-                 
-                abc = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
-
-                Form form = new SentMessage(abc, id_cel_care_e_conectat,"Client-Client");
-                form.Show();
-
-            }
-            else
-                if (dataGridView1.Columns.Contains("SendRelation") && dataGridView1.Columns["SendRelation"].Visible && e.ColumnIndex == dataGridView1.Columns["SendRelation"].Index)
-            {
-              
-                    abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
-                 
-                
-                if (dataGridView1.Rows[e.RowIndex].Cells["Friendship"].FormattedValue.ToString().Equals("Add friend"))
-               {
-                    
-                 var newrelatie=new Relatie()
-                   {
-                       ID_client_send=id_cel_care_e_conectat,
-                       ID_client_receive=Int32.Parse(abc),
-                       ID_status=1
-                       
-                   };
-                 int a = Int32.Parse(abc);
-                   using (var context = new LinkedinEntities5())
-                   {var results=(from c in context.Relatie
-                                 where c.ID_client_receive==a && c.ID_client_send==id_cel_care_e_conectat && c.ID_status==1
-                                 select c).FirstOrDefault();
-                   if (results == null)
-                   {
-                       context.Relatie.Add(newrelatie);
-                       context.SaveChanges();
-                       MessageBox.Show("Request was sent",
-                  "Information",
-                  MessageBoxButtons.OK,
-                  MessageBoxIcon.Information);
-                      
-                   }
-                   else
-                   {
-                       MessageBox.Show("There was another request sent",
-                 "Information",
-                 MessageBoxButtons.OK,
-                 MessageBoxIcon.Information);
-                   }
-                   }
-
-               }
-                else  
-                    if (dataGridView1.Rows[e.RowIndex].Cells["Friendship"].FormattedValue.ToString().Equals("Block"))
+                string abc = null;
+                if (dataGridView1.Columns.Contains("Match") && dataGridView1.Columns["Match"].Visible)
                 {
-                    var newrelatie = new Relatie()
-                    {
-                        ID_client_send = id_cel_care_e_conectat,
-                        ID_client_receive = Int32.Parse(abc),
-                        ID_status = 4
 
-                    };
-                    int a = Int32.Parse(abc);
+                    abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
+                    int b = Int32.Parse(abc);
                     using (var context = new LinkedinEntities5())
                     {
-                        var results = (from c in context.Relatie
-                                       where c.ID_client_receive == a && c.ID_client_send == id_cel_care_e_conectat && c.ID_status == 4
+
+                        List<string> apt_client = skills(b);
+                        List<string> apt_companie = skillsC(id_cel_care_e_conectat);
+                        var message = string.Join(Environment.NewLine, apt_companie);
+
+                        var message1 = string.Join(Environment.NewLine, apt_client);
+
+                        var matches = apt_client.Intersect(apt_companie).Count();
+                        int count = apt_companie.Count();
+
+
+                        int procent = (int)Math.Round((double)(100 * matches) / count);
+
+                        dataGridView1.Rows[e.RowIndex].Cells["Match"].Value = procent.ToString() + '%';
+
+                    }
+                }
+                if (dataGridView1.Columns.Contains("Message") && dataGridView1.Columns["Message"].Visible)
+                {
+
+                    abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
+
+                    Form form = new SentMessage(abc, id_cel_care_e_conectat, "Companie-Client");
+                    form.Show();
+
+                }
+                else if (dataGridView1.Columns.Contains("SendMessage") && dataGridView1.Columns["SendMessage"].Visible && e.ColumnIndex == dataGridView1.Columns["SendMessage"].Index)
+                {
+
+                    abc = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
+
+                    Form form = new SentMessage(abc, id_cel_care_e_conectat, "Client-Client");
+                    form.Show();
+
+                }
+                else
+                    if (dataGridView1.Columns.Contains("SendRelation") && dataGridView1.Columns["SendRelation"].Visible && e.ColumnIndex == dataGridView1.Columns["SendRelation"].Index)
+                {
+
+                    abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
+
+
+                    if (dataGridView1.Rows[e.RowIndex].Cells["Friendship"].FormattedValue.ToString().Equals("Add friend"))
+                    {
+
+                        var newrelatie = new Relatie()
+                        {
+                            ID_client_send = id_cel_care_e_conectat,
+                            ID_client_receive = Int32.Parse(abc),
+                            ID_status = 1
+
+                        };
+                        int a = Int32.Parse(abc);
+                        using (var context = new LinkedinEntities5())
+                        {
+                            var results = (from c in context.Relatie
+                                           where c.ID_client_receive == a && c.ID_client_send == id_cel_care_e_conectat && c.ID_status == 1
+                                           select c).FirstOrDefault();
+                            if (results == null)
+                            {
+                                context.Relatie.Add(newrelatie);
+                                context.SaveChanges();
+                                throw new Exception("Request was sent!");
+
+                            }
+                            else
+                            {
+                                throw new Exception("There was another request sent!");
+                            }
+                        }
+
+                    }
+                    else
+                        if (dataGridView1.Rows[e.RowIndex].Cells["Friendship"].FormattedValue.ToString().Equals("Block"))
+                    {
+                        var newrelatie = new Relatie()
+                        {
+                            ID_client_send = id_cel_care_e_conectat,
+                            ID_client_receive = Int32.Parse(abc),
+                            ID_status = 4
+
+                        };
+                        int a = Int32.Parse(abc);
+                        using (var context = new LinkedinEntities5())
+                        {
+                            var results = (from c in context.Relatie
+                                           where c.ID_client_receive == a && c.ID_client_send == id_cel_care_e_conectat && c.ID_status == 4
+                                           select c).FirstOrDefault();
+                            if (results == null)
+                            {
+                                context.Relatie.Add(newrelatie);
+                                context.SaveChanges();
+                                throw new Exception("Request was sent!");
+                            }
+                            else
+                            {
+                                throw new Exception("There was another request sent!");
+                            }
+                        }
+
+                    }
+                }
+                else
+                        if (dataGridView1.Columns.Contains("SendRating") && dataGridView1.Columns["SendRating"].Visible && e.ColumnIndex == dataGridView1.Columns["SendRating"].Index)
+                {
+
+                    abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
+                    int a = Int32.Parse(abc);
+                    int ok = 0;
+                    using (var context = new LinkedinEntities5())
+                    {
+                        var results = (from c in context.Rating
+                                       where c.ID_client_receive == a && c.ID_client_send == id_cel_care_e_conectat
                                        select c).FirstOrDefault();
                         if (results == null)
-                        {
-                            context.Relatie.Add(newrelatie);
-                            context.SaveChanges();
-                            MessageBox.Show("Request was sent",
-                       "Information",
-                       MessageBoxButtons.OK,
-                       MessageBoxIcon.Information);
+                            ok = 1;
 
-                        }
-                        else
-                        {
-                            MessageBox.Show("There was another request sent",
-                      "Information",
-                      MessageBoxButtons.OK,
-                      MessageBoxIcon.Information);
-                        }
                     }
 
-               }
-            }
-              else
-                    if (dataGridView1.Columns.Contains("SendRating") && dataGridView1.Columns["SendRating"].Visible && e.ColumnIndex == dataGridView1.Columns["SendRating"].Index)
+                    if (ok == 1)
                     {
-                      
-                       abc = dataGridView1.Rows[e.RowIndex].Cells[ID_Client.Index].Value.ToString();
-                        int a = Int32.Parse(abc);
-                        int ok = 0;
-                        using (var context = new LinkedinEntities5())
-                            {
-                                var results = (from c in context.Rating
-                                               where c.ID_client_receive == a && c.ID_client_send == id_cel_care_e_conectat
-                                               select c).FirstOrDefault();
-                                if (results == null)
-                                    ok = 1;
-                        
-                        }
-                            
-                          if(ok==1)
-                          { if (dataGridView1.Rows[e.RowIndex].Cells["Rating"].FormattedValue.Equals("5"))
+                        if (dataGridView1.Rows[e.RowIndex].Cells["Rating"].FormattedValue.Equals("5"))
                         {
                             var newrating = new Rating()
                             {
@@ -227,110 +218,97 @@ namespace proiect
                             {
                                 context.Rating.Add(newrating);
                                 context.SaveChanges();
-                                MessageBox.Show("Rating was sent",
-                 "Information",
-                 MessageBoxButtons.OK,
-                 MessageBoxIcon.Information);
+                                throw new Exception("Rating was sent!");
                             }
 
                         }
                         else
 
-                            if (dataGridView1.Rows[e.RowIndex].Cells["Rating"].FormattedValue.Equals("1"))
+                        if (dataGridView1.Rows[e.RowIndex].Cells["Rating"].FormattedValue.Equals("1"))
+                        {
+                            var newrating = new Rating()
                             {
-                                var newrating = new Rating()
-                                {
-                                    ID_client_send = id_cel_care_e_conectat,
-                                    ID_client_receive = Int32.Parse(abc),
-                                    Nota = 1
-                                };
+                                ID_client_send = id_cel_care_e_conectat,
+                                ID_client_receive = Int32.Parse(abc),
+                                Nota = 1
+                            };
 
-                                using (var context = new LinkedinEntities5())
-                                {
-                                    context.Rating.Add(newrating);
-                                    context.SaveChanges();
-                                    MessageBox.Show("Rating was sent",
-                "Information",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-                                }
-
+                            using (var context = new LinkedinEntities5())
+                            {
+                                context.Rating.Add(newrating);
+                                context.SaveChanges();
+                                throw new Exception("Rating was sent!");
                             }
-                            else
 
-                                if (dataGridView1.Rows[e.RowIndex].Cells["Rating"].FormattedValue.Equals("2"))
-                                {
-                                    var newrating = new Rating()
-                                    {
-                                        ID_client_send = id_cel_care_e_conectat,
-                                        ID_client_receive = Int32.Parse(abc),
-                                        Nota = 2
-                                    };
+                        }
+                        else
 
-                                    using (var context = new LinkedinEntities5())
-                                    {
-                                        context.Rating.Add(newrating);
-                                        context.SaveChanges();
-                                        MessageBox.Show("Rating was sent",
-                "Information",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-                                    }
+                            if (dataGridView1.Rows[e.RowIndex].Cells["Rating"].FormattedValue.Equals("2"))
+                        {
+                            var newrating = new Rating()
+                            {
+                                ID_client_send = id_cel_care_e_conectat,
+                                ID_client_receive = Int32.Parse(abc),
+                                Nota = 2
+                            };
 
-                                }
-                                else
+                            using (var context = new LinkedinEntities5())
+                            {
+                                context.Rating.Add(newrating);
+                                context.SaveChanges();
+                                throw new Exception("Rating was sent!");
+                            }
 
-                                    if (dataGridView1.Rows[e.RowIndex].Cells["Rating"].FormattedValue.Equals("3"))
-                                    {
-                                        var newrating = new Rating()
-                                        {
-                                            ID_client_send = id_cel_care_e_conectat,
-                                            ID_client_receive = Int32.Parse(abc),
-                                            Nota = 3
-                                        };
+                        }
+                        else
 
-                                        using (var context = new LinkedinEntities5())
-                                        {
-                                            context.Rating.Add(newrating);
-                                            context.SaveChanges();
-                                            MessageBox.Show("Rating was sent",
-                "Information",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-                                        }
+                                if (dataGridView1.Rows[e.RowIndex].Cells["Rating"].FormattedValue.Equals("3"))
+                        {
+                            var newrating = new Rating()
+                            {
+                                ID_client_send = id_cel_care_e_conectat,
+                                ID_client_receive = Int32.Parse(abc),
+                                Nota = 3
+                            };
 
-                                    }
-                                    else
+                            using (var context = new LinkedinEntities5())
+                            {
+                                context.Rating.Add(newrating);
+                                context.SaveChanges();
+                                throw new Exception("Rating was sent!");
+                            }
 
-                                        if (dataGridView1.Rows[e.RowIndex].Cells["Rating"].FormattedValue.Equals("4"))
-                                        {
-                                            var newrating = new Rating()
-                                            {
-                                                ID_client_send = id_cel_care_e_conectat,
-                                                ID_client_receive = Int32.Parse(abc),
-                                                Nota = 4
-                                            };
+                        }
+                        else
 
-                                            using (var context = new LinkedinEntities5())
-                                            {
-                                                context.Rating.Add(newrating);
-                                                context.SaveChanges();
-                                                MessageBox.Show("Rating was sent",
-                "Information",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-                                            }
+                                    if (dataGridView1.Rows[e.RowIndex].Cells["Rating"].FormattedValue.Equals("4"))
+                        {
+                            var newrating = new Rating()
+                            {
+                                ID_client_send = id_cel_care_e_conectat,
+                                ID_client_receive = Int32.Parse(abc),
+                                Nota = 4
+                            };
 
-                                        }
-                          }
-                          else
-                          {
-                              MessageBox.Show("You have already rated this person!",
-                                  "Information",
-                                  MessageBoxButtons.OK,
-                                  MessageBoxIcon.Information);
-                          }
+                            using (var context = new LinkedinEntities5())
+                            {
+                                context.Rating.Add(newrating);
+                                context.SaveChanges();
+                                throw new Exception("Rating was sent!");
+                            }
+
+                        }
                     }
+                    else
+                    {
+                        throw new Exception("You have already rated this person!");
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void Search_Load(object sender, EventArgs e)
         {

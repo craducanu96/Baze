@@ -174,66 +174,75 @@ namespace proiect
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            string click="";
-            string ids = null;
-            int id;
-            int ok = 0;   //    =>   to a Client
-            if (dataGridView1.Columns.Contains("Respond") && dataGridView1.Columns["Respond"].Visible && e.ColumnIndex == dataGridView1.Columns["Respond"].Index)
+            try
             {
-                click = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-                
-                using (var context = new LinkedinEntities5())
+                string click = "";
+                string ids = null;
+                int id;
+                int ok = 0;   //    =>   to a Client
+                if (dataGridView1.Columns.Contains("Respond") && dataGridView1.Columns["Respond"].Visible && e.ColumnIndex == dataGridView1.Columns["Respond"].Index)
                 {
-                    var results = from item in context.Client
-                                  where item.Username == click
-                                  select new
-                                  {
-                                      item.ID_Client
-                                  };
-                    foreach(var it in results)
+                    click = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+
+                    using (var context = new LinkedinEntities5())
                     {
-                        ids = it.ID_Client.ToString();
-                    }
-                    if(ids==null)
-                    {
-                        ok = 1;   //    =>  to a Company
-                        var rez = from itt in context.Companie
-                                  where itt.UsernameC == click
-                                  select new
-                                  {
-                                      itt.ID_Companie
-                                  };
-                        foreach(var it in rez)
+                        var results = from item in context.Client
+                                      where item.Username == click
+                                      select new
+                                      {
+                                          item.ID_Client
+                                      };
+                        foreach (var it in results)
                         {
-                            ids = it.ID_Companie.ToString();
+                            ids = it.ID_Client.ToString();
+                        }
+                        if (ids == null)
+                        {
+                            ok = 1;   //    =>  to a Company
+                            var rez = from itt in context.Companie
+                                      where itt.UsernameC == click
+                                      select new
+                                      {
+                                          itt.ID_Companie
+                                      };
+                            foreach (var it in rez)
+                            {
+                                ids = it.ID_Companie.ToString();
+                            }
                         }
                     }
-                }
-                id = Int32.Parse(ids);
-                
-                if(ids!=null)
-                {
-                    if (WhaAmI==1)     //from Client
+                    id = Int32.Parse(ids);
+
+                    if (ids != null)
                     {
-                        if (ok == 0)     //  to Client
+                        if (WhaAmI == 1)     //from Client
                         {
-                            Form form = new SentMessage(click, id_cel_logat, "Client-Client");
-                            form.Show();
+                            if (ok == 0)     //  to Client
+                            {
+                                Form form = new SentMessage(click, id_cel_logat, "Client-Client");
+                                form.Show();
+                            }
+                            else    //  to Company
+                            {
+                                Form form = new SentMessage(click, id_cel_logat, "Client-Companie");
+                                form.Show();
+                            }
                         }
-                        else    //  to Company
-                        {
-                            Form form = new SentMessage(click, id_cel_logat, "Client-Companie");
-                            form.Show();
-                        }
-                    }
-                    else 
-                        if(WhaAmI==2)     ///from Company
+                        else
+                            if (WhaAmI == 2)     ///from Company
                         {
                             Form form = new SentMessage(click, id_cel_logat, "Companie-Client");
                             form.Show();
                         }
+                    }
+                    else
+                        throw new Exception("NULL Destination");
+
                 }
-                                
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }
