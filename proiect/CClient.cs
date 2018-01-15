@@ -356,5 +356,11 @@ namespace proiect
         {
 
         }
+
+        private void btRaport_Click(object sender, EventArgs e)
+        {
+           Form form = new Export();
+           form.ShowDialog();
+        }
     }
 }

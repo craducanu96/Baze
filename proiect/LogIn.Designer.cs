@@ -38,6 +38,8 @@
             this.lbForgotPass = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.lbNewCompany = new System.Windows.Forms.LinkLabel();
+            this.picLogo = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // txtUsername
@@ -128,12 +130,22 @@
             this.lbNewCompany.Text = "New company";
             this.lbNewCompany.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbNewCompany_LinkClicked);
             // 
+            // picLogo
+            // 
+            this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
+            this.picLogo.Location = new System.Drawing.Point(143, 30);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(223, 61);
+            this.picLogo.TabIndex = 10;
+            this.picLogo.TabStop = false;
+            // 
             // Log_page
             // 
             this.AcceptButton = this.btLogIn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(512, 423);
+            this.Controls.Add(this.picLogo);
             this.Controls.Add(this.lbNewCompany);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbForgotPass);
@@ -150,6 +162,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Log In";
             this.Load += new System.EventHandler(this.Log_page_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,6 +179,7 @@
         private System.Windows.Forms.LinkLabel lbForgotPass;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel lbNewCompany;
+        private System.Windows.Forms.PictureBox picLogo;
     }
 }
 
